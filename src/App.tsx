@@ -1,31 +1,30 @@
-import { useState } from 'react';
-import reactLogo from './assets/react.svg';
-
-function App() {
-    const [count, setCount] = useState(0);
-
+export default function App() {
     return (
-        <>
-            <div>
-                <a href="https://react.dev" target="_blank" rel="noreferrer">
-                    <img src={reactLogo} alt="React logo" />
-                </a>
-            </div>
-            <h1>Vite + React</h1>
-            <div>
-                <button
-                    type="button"
-                    onClick={() => setCount((prev) => prev + 1)}
-                >
-                    count is {count}
-                </button>
-                <p>
-                    Edit <code>src/App.tsx</code> and save to test HMR
-                </p>
-            </div>
-            <p>Click on the Vite and React logos to learn more</p>
-        </>
+        <div>
+            <header>
+                <div>
+                    {window.innerWidth}
+                    <p>sinde530 stack blog.</p>
+                </div>
+                <div>
+                    <p>Home</p>
+                    <p>Login</p>
+                </div>
+            </header>
+            <section>
+                {/* sidebar */}
+                <img src="" alt="" />
+            </section>
+            <main>
+                {/* main */}
+                <p>main</p>
+            </main>
+
+            <footer>
+                <p>footer footer footer</p>
+                <p>footer footer footer</p>
+                <p>footer footer footer</p>
+            </footer>
+        </div>
     );
 }
-
-export default App;
