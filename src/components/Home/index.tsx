@@ -68,7 +68,7 @@ export default function Home() {
         <Container>
             <Header>
                 <HeaderLeftBox>
-                    <LogoText to="/">
+                    <LogoText to="/stack-blog/">
                         sinde530 stack blog. &zwj;
                         <LogoImage src={logo} alt={`${logo} error`} />
                     </LogoText>
@@ -76,10 +76,10 @@ export default function Home() {
                 <HeaderRightBox>
                     <ListItem>
                         <Item>
-                            <LinkTo to="/">Home</LinkTo>
+                            <LinkTo to="/stack-blog/">Home</LinkTo>
                         </Item>
                         <Item>
-                            <LinkTo to="/category">Category</LinkTo>
+                            <LinkTo to="/stack-blog/category">Category</LinkTo>
                         </Item>
                     </ListItem>
                 </HeaderRightBox>
