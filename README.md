@@ -24,6 +24,24 @@
 
 ## Install
 
-```
+```typescript
 yarn && yarn install
+```
+
+<br>
+
+## Deploy
+
+```typescript
+// branch: master or sub branch
+
+yarn build
+// or
+npm run build
+
+git add dist -f
+
+git commit -m "dist child commit"
+
+git subtree push --prefix dist origin gh-pages
 ```
