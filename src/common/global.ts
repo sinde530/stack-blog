@@ -9,6 +9,5 @@ export const GlobalStyle = createGlobalStyle`
 
     body {
         box-sizing: border-box;
-        max-width: 1400px;
     }
 `;
