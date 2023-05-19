@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { saveAs } from 'file-saver';
 import { today } from 'src/common/today';
 import {
     Button,
@@ -17,6 +18,7 @@ interface PostTypes {
     author: string;
     tags: string;
     categories: string;
+    content: string;
 }
 
 export default function Create() {
@@ -26,11 +28,46 @@ export default function Create() {
         author: 'Crong',
         tags: '',
         categories: '',
+        content: '',
     });
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        // handleSubmit 함수를 구현하여 폼 데이터를 저장하는 로직을 추가합니다.
+
+        const filePath = `/${postContent.categories}/${postContent.title}.md`;
+        console.log(filePath);
+        console.log(postContent.content);
+
+        const fileContent = `---
+            title: ${postContent.title}
+            date: ${postContent.date}
+            author: ${postContent.author}
+            tags: ${postContent.tags}
+            categories: ${postContent.categories}
+            ---
+    
+        ${postContent.content}`;
+
+        try {
+            const blob = new Blob([fileContent], {
+                type: 'text/markdown;charset=utf-8',
+            });
+
+            saveAs(blob, filePath);
+
+            console.log('File created successfully!');
+
+            setPostContent({
+                title: '',
+                date: today(),
+                author: 'Crong',
+                tags: '',
+                categories: '',
+                content: '',
+            });
+        } catch (error) {
+            console.error('Error:', error);
+        }
     };
 
     const handleChange = (
