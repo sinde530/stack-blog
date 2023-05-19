@@ -1,6 +1,15 @@
-import styled from '@emotion/styled';
 import { useState } from 'react';
 import { today } from 'src/common/today';
+import {
+    Button,
+    Container,
+    Form,
+    FormGroup,
+    Input,
+    Label,
+    TextArea,
+    Title,
+} from './styled';
 
 interface PostTypes {
     title: string;
@@ -9,59 +18,6 @@ interface PostTypes {
     tags: string;
     categories: string;
 }
-
-const Container = styled.div`
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f5f5f5;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-`;
-
-const Title = styled.h1`
-    font-size: 24px;
-    margin-bottom: 20px;
-`;
-
-const Form = styled.form`
-    margin-top: 20px;
-`;
-
-const FormGroup = styled.p`
-    margin-bottom: 10px;
-`;
-
-const Label = styled.label`
-    font-weight: bold;
-`;
-
-const Input = styled.input`
-    width: 100%;
-    padding: 8px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-`;
-
-const TextArea = styled.textarea`
-    width: 100%;
-    height: 150px;
-    padding: 8px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-`;
-
-const Button = styled.button`
-    padding: 10px 16px;
-    font-size: 16px;
-    background-color: #4285f4;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-`;
 
 export default function Create() {
     const [postContent, setPostContent] = useState<PostTypes>({
