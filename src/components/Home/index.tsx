@@ -1,6 +1,10 @@
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
+
 import logo from 'src/assets/images/logo.png';
+
+import Sidebar from '../Sidebar';
+import Section from '../Section';
 
 export const Container = styled.div({
     maxWidth: '1440px',
@@ -63,6 +67,14 @@ export const LinkTo = styled(Link)({
     },
 });
 
+export const MainContents = styled.div({
+    maxWidth: '1440px',
+    margin: '0 auto',
+    display: 'flex',
+    flex: '1 0 auto',
+    backgroundColor: 'green',
+});
+
 export default function Home() {
     return (
         <Container>
@@ -84,14 +96,10 @@ export default function Home() {
                     </ListItem>
                 </HeaderRightBox>
             </Header>
-            <section>
-                {/* sidebar */}
-                <img src="" alt="" />
-            </section>
-            <main>
-                {/* main */}
-                <p>main</p>
-            </main>
+            <MainContents>
+                <Sidebar />
+                <Section />
+            </MainContents>
         </Container>
     );
 }
