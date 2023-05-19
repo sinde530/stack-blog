@@ -68,18 +68,18 @@ export default function Home() {
         <Container>
             <Header>
                 <HeaderLeftBox>
-                    <LogoText to="/stack-blog/">
-                        sinde530 stack blog. &zwj;
+                    <LogoText to="/tack-blog/">
+                        sinde530 tack blog. &zwj;
                         <LogoImage src={logo} alt={`${logo} error`} />
                     </LogoText>
                 </HeaderLeftBox>
                 <HeaderRightBox>
                     <ListItem>
                         <Item>
-                            <LinkTo to="/stack-blog/">Home</LinkTo>
+                            <LinkTo to="/tack-blog/">Home</LinkTo>
                         </Item>
                         <Item>
-                            <LinkTo to="/stack-blog/category">Category</LinkTo>
+                            <LinkTo to="/tack-blog/category">Category</LinkTo>
                         </Item>
                     </ListItem>
                 </HeaderRightBox>

@@ -7,7 +7,7 @@ export default function App() {
     return (
         <Routes>
             <Route element={<MainLayout />}>
-                <Route path="/stack-blog/" element={<Outlet />}>
+                <Route path="/tack-blog/" element={<Outlet />}>
                     <Route index element={<Home />} />
                 </Route>
             </Route>
