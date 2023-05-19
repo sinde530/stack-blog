@@ -72,7 +72,6 @@ export const MainContents = styled.div({
     margin: '0 auto',
     display: 'flex',
     flex: '1 0 auto',
-    backgroundColor: 'green',
 });
 
 export default function Home() {

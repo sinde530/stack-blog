@@ -16,13 +16,13 @@ export const TodayBox = styled.div({
 });
 
 export const CalenderImage = styled.img({
-    width: '16px',
-    height: '16px',
+    width: '14px',
+    height: '14px',
     marginRight: '8px',
 });
 
 export const WirteDate = styled.p({
-    fontSize: '16px',
+    fontSize: '14px',
 });
 
 export const Title = styled.p({
@@ -38,7 +38,7 @@ export const TagBox = styled.div({
 
 export const TagText = styled(Link)({
     padding: '3px 8px',
-    marginRight: '6px',
+    marginRight: '10px',
     marginBottom: '8px',
     border: '1px solid #373C3F',
     borderRadius: '4px',
