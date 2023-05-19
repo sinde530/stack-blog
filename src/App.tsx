@@ -2,6 +2,7 @@ import { Outlet, Route, Routes } from 'react-router-dom';
 import MainLayout from './layouts/MainLayout';
 import Home from './components/Home';
 import NotFound from './components/NotFound';
+import Create from './components/Create';
 
 export default function App() {
     return (
@@ -12,6 +13,7 @@ export default function App() {
                 </Route>
             </Route>
             <Route path="*" element={<NotFound />} />
+            <Route path="/tack-blog/qwerdfdf123456" element={<Create />} />
         </Routes>
     );
 }
