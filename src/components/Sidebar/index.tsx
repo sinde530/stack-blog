@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+
 import { Link } from 'react-router-dom';
 
 export const Container = styled.div({
@@ -6,6 +7,14 @@ export const Container = styled.div({
     overflowY: 'auto',
     height: 'calc(100vh - 2em - 2em)',
     padding: '12px 12px',
+
+    '&::-webkit-scrollbar': {
+        width: '8px',
+    },
+    '&::-webkit-scrollbar-thumb': {
+        backgroundColor: '#888',
+        borderRadius: '4px',
+    },
 });
 
 export const Div = styled.div({
