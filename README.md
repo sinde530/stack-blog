@@ -1,11 +1,11 @@
 <div align="center">
 
-# @sinde530/stack-blog
+# @sinde530/tack-blog
 
 </div>
 
 <div align="center">
-    <h2>stack-blog</h2>
+    <h2>tack-blog</h2>
 </div>
 
 <br>
