@@ -8,7 +8,6 @@
     "dev": "vite",
     "build": "tsc && vite build && cp -r posts dist/posts",
     "copy-posts": "cp -r posts dist/posts",
-
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
@@ -32,6 +31,7 @@
     "gh-pages": "^5.0.0",
     "gray-matter": "^4.0.3",
     "markdown-it": "^13.0.1",
+    "marked": "^5.0.2",
     "prettier": "^2.8.8",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
