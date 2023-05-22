@@ -31,11 +31,15 @@ export default function Section() {
                 const fileDataPromises = filePaths.map((filePath) =>
                     getFileData(filePath),
                 );
-                const allFileData = await Promise.all(fileDataPromises);
+                const allFileData = (
+                    await Promise.all(fileDataPromises)
+                ).filter(Boolean) as FileData[];
 
                 allFileData.forEach((data) => {
-                    const { title, date, tags } = data;
-                    console.log(title, date, tags);
+                    if (data) {
+                        const { title, date, tags } = data;
+                        console.log(title, date, tags);
+                    }
                 });
 
                 setFileDataList(allFileData);
@@ -51,31 +55,34 @@ export default function Section() {
         <Container>
             <Heading>Recent Posts</Heading>
 
-            {fileDataList.map((fileData, index) => (
-                <PostContainer key={index}>
-                    <Link to="/">
-                        <TodayBox>
-                            <CalenderImage
-                                src={calenderImage}
-                                alt={`${calenderImage} error`}
-                            />
-                            <WirteDate>{fileData.date}</WirteDate>
-                        </TodayBox>
-                    </Link>
+            {fileDataList.map(
+                (fileData, index) =>
+                    fileData && (
+                        <PostContainer key={index}>
+                            <Link to="/">
+                                <TodayBox>
+                                    <CalenderImage
+                                        src={calenderImage}
+                                        alt={`${calenderImage} error`}
+                                    />
+                                    <WirteDate>{fileData.date}</WirteDate>
+                                </TodayBox>
+                            </Link>
 
-                    <Link to="/">
-                        <Title>{fileData.title}</Title>
-                    </Link>
+                            <Link to="/">
+                                <Title>{fileData.title}</Title>
+                            </Link>
 
-                    <TagBox>
-                        {fileData.tags.map((tag, tagIndex) => (
-                            <TagText key={tagIndex} to={`/${tag}`}>
-                                {tag}
-                            </TagText>
-                        ))}
-                    </TagBox>
-                </PostContainer>
-            ))}
+                            <TagBox>
+                                {fileData.tags.map((tag, tagIndex) => (
+                                    <TagText key={tagIndex} to={`/${tag}`}>
+                                        {tag}
+                                    </TagText>
+                                ))}
+                            </TagBox>
+                        </PostContainer>
+                    ),
+            )}
         </Container>
     );
 }
