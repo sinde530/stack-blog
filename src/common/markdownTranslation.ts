@@ -1,10 +1,16 @@
 import frontMatter from 'front-matter';
+import marked from 'marked';
 
 interface FileData {
     title: string;
     date: string;
     tags: string[];
 }
+
+export const markdownToHtml = async (markdown: any) => {
+    const html = marked(markdown);
+    return html;
+};
 
 export const fetchFileContents = async (filePath: string) => {
     const response = await fetch(filePath);
