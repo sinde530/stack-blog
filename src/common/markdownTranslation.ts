@@ -12,10 +12,13 @@ export const fetchFileContents = async (filePath: string) => {
     return fileContents;
 };
 
-export const getFileData = async (filePath: string) => {
+export const getFileData = async (
+    filePath: string,
+): Promise<FileData | null> => {
     const fileContents = await fetchFileContents(filePath);
     if (!fileContents) {
         console.error(`No file contents found at path: ${filePath}`);
+        return null; // Return null if file contents not found
     }
     const { attributes }: { attributes: FileData } = frontMatter(fileContents);
     return attributes;
@@ -28,6 +31,10 @@ const getFileDataForFiles = async () => {
         await Promise.all(
             filePaths.map(async (filePath) => {
                 const fileData = await getFileData(filePath);
+                if (!fileData) {
+                    console.error(`File data is null for path: ${filePath}`);
+                    return;
+                }
                 const { title, date, tags } = fileData;
                 console.log(title, date, tags);
             }),
