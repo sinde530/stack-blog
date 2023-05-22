@@ -21,10 +21,7 @@ export const getFileData = async (filePath: string) => {
     return attributes;
 };
 
-export const filePaths = [
-    '/tack-blog/posts/tutorial/README.md',
-    '/tack-blog/posts/test/가나다라-마바사.md',
-];
+export const filePaths = ['/tack-blog/posts/tutorial/README.md'];
 
 const getFileDataForFiles = async () => {
     try {
