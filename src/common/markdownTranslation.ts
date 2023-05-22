@@ -15,9 +15,6 @@ export const getFileData = async (filePath: string) => {
 export const filePaths = [
     '/posts/tutorial/README.md',
     '/posts/test/가나다라-마바사.md',
-    // '/posts/tutorial/dfdf.md',
-    // '/posts/tutorial1/가나다라.md',
-    // '/posts/tutorial2/마바사.md',
 ];
 
 const getFileDataForAllFiles = async () => {
