@@ -6,11 +6,12 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build && yarn copy-posts",
-    "copy-posts": "cp -r posts/ dist/posts",
+    "build": "tsc && vite build && cp -r posts dist/posts",
+    "copy-posts": "cp -r posts dist/posts",
+
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
-  },  
+  },
   "dependencies": {
     "@emotion/react": "^11.11.0",
     "@emotion/styled": "^11.11.0",
@@ -26,6 +27,7 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.32.2",
     "file-saver": "^2.0.5",
+    "front-matter": "^4.0.2",
     "fs-extra": "^11.1.1",
     "gh-pages": "^5.0.0",
     "gray-matter": "^4.0.3",
