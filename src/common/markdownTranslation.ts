@@ -1,26 +1,39 @@
 import matter from 'gray-matter';
 
-export const fetchFileContents = async () => {
-    const response = await fetch('/posts/tutorial/README.md');
+export const fetchFileContents = async (filePath) => {
+    const response = await fetch(filePath);
     const fileContents = await response.text();
     return fileContents;
 };
-
-const getFileData = async () => {
-    const fileContents = await fetchFileContents();
+export const getFileData = async (filePath) => {
+    const fileContents = await fetchFileContents(filePath);
     const { data } = matter(fileContents);
     const { title, date, tags } = data;
     return { title, date, tags };
 };
 
-getFileData()
-    .then((data) => {
-        const { title, date, tags } = data;
-        console.log(title, date, tags);
+export const filePaths = [
+    '/posts/tutorial/README.md',
+    '/posts/test/가나다라-마바사.md',
+    // '/posts/tutorial/dfdf.md',
+    // '/posts/tutorial1/가나다라.md',
+    // '/posts/tutorial2/마바사.md',
+];
 
-        // Use the title and date variables here
-    })
-    .catch((error) => {
-        // Handle any errors that occur during the file fetching or processing
+const getFileDataForAllFiles = async () => {
+    try {
+        const fileDataPromises = filePaths.map((filePath) =>
+            getFileData(filePath),
+        );
+        const allFileData = await Promise.all(fileDataPromises);
+
+        allFileData.forEach((data) => {
+            const { title, date, tags } = data;
+            console.log(title, date, tags);
+        });
+    } catch (error) {
         console.error(error);
-    });
+    }
+};
+
+getFileDataForAllFiles();

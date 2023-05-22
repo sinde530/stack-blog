@@ -1,9 +1,9 @@
+/* eslint-disable react/no-array-index-key */
 import Heading from 'src/common/Heading';
 import calenderImage from 'src/assets/images/calendar.png';
 import { Link } from 'react-router-dom';
-import { fetchFileContents } from 'src/common/markdownTranslation';
+import { filePaths, getFileData } from 'src/common/markdownTranslation';
 import { useEffect, useState } from 'react';
-import matter from 'gray-matter';
 
 import {
     CalenderImage,
@@ -23,61 +23,55 @@ interface FileData {
 }
 
 export default function Section() {
-    const [fileData, setFileData] = useState<FileData>({
-        title: '',
-        date: '',
-        tags: '',
-    });
+    const [fileDataList, setFileDataList] = useState<FileData[]>([]);
 
     useEffect(() => {
-        const getFileData = async () => {
+        const getFileDataForAllFiles = async () => {
             try {
-                const fileContents = await fetchFileContents();
-                const { data } = matter(fileContents);
-                // setFileData(data);
-                setFileData((prevData) => ({
-                    ...prevData,
-                    ...data,
-                }));
+                const fileDataPromises = filePaths.map((filePath) =>
+                    getFileData(filePath),
+                );
+                const allFileData = await Promise.all(fileDataPromises);
+                setFileDataList(allFileData);
             } catch (error) {
                 console.error(error);
             }
         };
 
-        getFileData();
+        getFileDataForAllFiles();
     }, []);
 
-    const { title, date, tags } = fileData;
-    const split = fileData.tags.split(' ');
+    // const split = fileData.tags.split(' ');
 
     return (
         <Container>
             <Heading>Recent Posts</Heading>
 
-            <PostContainer>
-                <Link to="/">
-                    <TodayBox>
-                        <CalenderImage
-                            src={calenderImage}
-                            alt={`${calenderImage} error`}
-                        />
-                        <WirteDate>{date}</WirteDate>
-                    </TodayBox>
-                </Link>
+            {fileDataList.map((fileData, index) => (
+                <PostContainer key={index}>
+                    <Link to="/">
+                        <TodayBox>
+                            <CalenderImage
+                                src={calenderImage}
+                                alt={`${calenderImage} error`}
+                            />
+                            <WirteDate>{fileData.date}</WirteDate>
+                        </TodayBox>
+                    </Link>
 
-                <Link to="/">
-                    <Title>{title}</Title>
-                </Link>
+                    <Link to="/">
+                        <Title>{fileData.title}</Title>
+                    </Link>
 
-                <TagBox>
-                    {split.map((tag, index) => (
-                        // eslint-disable-next-line react/no-array-index-key
-                        <TagText key={index} to={`/${tags}`}>
-                            {tag}
-                        </TagText>
-                    ))}
-                </TagBox>
-            </PostContainer>
+                    <TagBox>
+                        {fileData.tags.split(' ').map((tag, tagIndex) => (
+                            <TagText key={tagIndex} to={`/${tag}`}>
+                                {tag}
+                            </TagText>
+                        ))}
+                    </TagBox>
+                </PostContainer>
+            ))}
         </Container>
     );
 }

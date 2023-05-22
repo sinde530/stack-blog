@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { saveAs } from 'file-saver';
 import { today } from 'src/common/today';
 import {
     Button,
@@ -31,43 +30,76 @@ export default function Create() {
         content: '',
     });
 
-    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    // const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    //     event.preventDefault();
+
+    //     const modifyTitle = postContent.title.replace(/ /g, '-');
+    //     const fileName = `${modifyTitle}.md`;
+    //     const fileContent = `---
+    //         title: ${postContent.title}
+    //         date: ${postContent.date}
+    //         author: ${postContent.author}
+    //         tags: ${postContent.tags}
+    //         categories: ${postContent.categories}
+    //         ---
+
+    //     ${postContent.content}`;
+
+    //     const blob = new Blob([fileContent], { type: 'text/markdown' });
+    //     const url = URL.createObjectURL(blob);
+
+    //     const link = document.createElement('a');
+    //     link.href = url;
+    //     link.download = fileName;
+    //     link.click();
+
+    //     URL.revokeObjectURL(url);
+
+    //     setPostContent({
+    //         title: '',
+    //         date: today(),
+    //         author: 'Crong',
+    //         tags: '',
+    //         categories: '',
+    //         content: '',
+    //     });
+    // };
+
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        const filePath = `/${postContent.categories}/${postContent.title}.md`;
-        console.log(filePath);
-        console.log(postContent.content);
-
-        const fileContent = `---
+        const modifyTitle = postContent.title.replace(/ /g, '-');
+        const fileName = `${modifyTitle}.md`;
+        const fileContent = `
+        ---
             title: ${postContent.title}
             date: ${postContent.date}
             author: ${postContent.author}
             tags: ${postContent.tags}
             categories: ${postContent.categories}
-            ---
+        ---
     
-        ${postContent.content}`;
+        ${postContent.content}
+        `;
 
-        try {
-            const blob = new Blob([fileContent], {
-                type: 'text/markdown;charset=utf-8',
-            });
+        const blob = new Blob([fileContent], { type: 'text/markdown' });
+        const url = URL.createObjectURL(blob);
 
-            saveAs(blob, filePath);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = fileName;
+        link.click();
 
-            console.log('File created successfully!');
+        URL.revokeObjectURL(url);
 
-            setPostContent({
-                title: '',
-                date: today(),
-                author: 'Crong',
-                tags: '',
-                categories: '',
-                content: '',
-            });
-        } catch (error) {
-            console.error('Error:', error);
-        }
+        setPostContent({
+            title: '',
+            date: today(),
+            author: 'Crong',
+            tags: '',
+            categories: '',
+            content: '',
+        });
     };
 
     const handleChange = (
