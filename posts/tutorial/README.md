@@ -2,7 +2,7 @@
 title: 블로그를 작성해 보자.
 date: '2022-06-02'
 author: Crong
-tags: tutorial blog test
+tags: ['tutorial', 'blog', 'test']
 categories: blog
 ---
 
