@@ -1,11 +1,11 @@
 import matter from 'gray-matter';
 
-export const fetchFileContents = async (filePath) => {
+export const fetchFileContents = async (filePath: string) => {
     const response = await fetch(filePath);
     const fileContents = await response.text();
     return fileContents;
 };
-export const getFileData = async (filePath) => {
+export const getFileData = async (filePath: string) => {
     const fileContents = await fetchFileContents(filePath);
     const { data } = matter(fileContents);
     const { title, date, tags } = data;
