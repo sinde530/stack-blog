@@ -19,7 +19,7 @@ import {
 interface FileData {
     title: string;
     date: string;
-    tags: string;
+    tags: string[];
 }
 
 export default function Section() {
@@ -32,6 +32,12 @@ export default function Section() {
                     getFileData(filePath),
                 );
                 const allFileData = await Promise.all(fileDataPromises);
+
+                allFileData.forEach((data) => {
+                    const { title, date, tags } = data;
+                    console.log(title, date, tags);
+                });
+
                 setFileDataList(allFileData);
             } catch (error) {
                 console.error(error);
@@ -40,8 +46,6 @@ export default function Section() {
 
         getFileDataForAllFiles();
     }, []);
-
-    // const split = fileData.tags.split(' ');
 
     return (
         <Container>
@@ -64,7 +68,7 @@ export default function Section() {
                     </Link>
 
                     <TagBox>
-                        {fileData.tags.split(' ').map((tag, tagIndex) => (
+                        {fileData.tags.map((tag, tagIndex) => (
                             <TagText key={tagIndex} to={`/${tag}`}>
                                 {tag}
                             </TagText>

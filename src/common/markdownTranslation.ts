@@ -1,36 +1,43 @@
-import matter from 'gray-matter';
+import frontMatter from 'front-matter';
+
+interface FileData {
+    title: string;
+    date: string;
+    tags: string[];
+}
 
 export const fetchFileContents = async (filePath: string) => {
     const response = await fetch(filePath);
     const fileContents = await response.text();
     return fileContents;
 };
+
 export const getFileData = async (filePath: string) => {
     const fileContents = await fetchFileContents(filePath);
-    const { data } = matter(fileContents);
-    const { title, date, tags } = data;
-    return { title, date, tags };
+    if (!fileContents) {
+        console.error(`No file contents found at path: ${filePath}`);
+    }
+    const { attributes }: { attributes: FileData } = frontMatter(fileContents);
+    return attributes;
 };
 
 export const filePaths = [
-    '/posts/tutorial/README.md',
-    '/posts/test/가나다라-마바사.md',
+    '/tack-blog/posts/tutorial/README.md',
+    '/tack-blog/posts/test/가나다라-마바사.md',
 ];
 
-const getFileDataForAllFiles = async () => {
+const getFileDataForFiles = async () => {
     try {
-        const fileDataPromises = filePaths.map((filePath) =>
-            getFileData(filePath),
+        await Promise.all(
+            filePaths.map(async (filePath) => {
+                const fileData = await getFileData(filePath);
+                const { title, date, tags } = fileData;
+                console.log(title, date, tags);
+            }),
         );
-        const allFileData = await Promise.all(fileDataPromises);
-
-        allFileData.forEach((data) => {
-            const { title, date, tags } = data;
-            console.log(title, date, tags);
-        });
     } catch (error) {
         console.error(error);
     }
 };
 
-getFileDataForAllFiles();
+getFileDataForFiles();
