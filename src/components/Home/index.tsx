@@ -74,7 +74,19 @@ export const MainContents = styled.div({
     flex: '1 0 auto',
 });
 
-export default function Home() {
+type PostProps = {
+    categories: string;
+    fileName: string;
+    title: string;
+    date: string;
+    tags: string[];
+};
+
+type PostListProps = {
+    posts: PostProps[];
+};
+
+export default function Home({ posts }: PostListProps) {
     return (
         <Container>
             <Header>
@@ -97,7 +109,7 @@ export default function Home() {
             </Header>
             <MainContents>
                 <Sidebar />
-                <PostList />
+                <PostList posts={posts} />
             </MainContents>
         </Container>
     );

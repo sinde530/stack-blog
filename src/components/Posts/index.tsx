@@ -3,14 +3,14 @@ import { Link, useParams } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import rehypeHighlight from 'rehype-highlight';
 
-type PostProps = {
-    folderName: string;
+export type PostProps = {
+    categories: string;
     fileName: string;
     title: string;
 };
 
 export default function Posts() {
-    const { folderName, fileName, title } = useParams<PostProps>();
+    const { categories, fileName, title } = useParams<PostProps>();
     const [mdSource, setMdSource] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(true);
 
@@ -18,9 +18,13 @@ export default function Posts() {
         const fetchPostContent = async () => {
             try {
                 setIsLoading(true);
-                const response = await fetch(
-                    `./posts/${folderName}/${fileName}/${title}.md`,
-                );
+                const url = `/tack-blog/posts/${categories}/${fileName}.md`;
+                // const url = `/posts/${categories}/${fileName}.md`;
+                console.log('Fetching post from:', url);
+                const response = await fetch(url);
+
+                console.log('Fetching post from:', url);
+
                 if (!response.ok) {
                     throw new Error('Error fetching post');
                 }
@@ -35,7 +39,7 @@ export default function Posts() {
         };
 
         fetchPostContent();
-    }, [title]);
+    }, [categories, fileName, title]);
 
     return (
         <div className="post">
