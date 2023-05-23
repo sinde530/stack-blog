@@ -40,6 +40,7 @@ export default function App() {
             <Route element={<MainLayout />}>
                 <Route path="/tack-blog" element={<Outlet />}>
                     <Route
+                        key={window.location.pathname}
                         path="/tack-blog/posts/:categories/:fileName"
                         element={<Posts />}
                     />
