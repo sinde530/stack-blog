@@ -1,7 +1,7 @@
-import { Outlet, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-
 import axios from 'axios';
+
 import MainLayout from './layouts/MainLayout';
 
 import Home from './components/Home';
@@ -37,16 +37,12 @@ export default function App() {
 
     return (
         <Routes>
-            <Route element={<MainLayout />}>
-                <Route path="/tack-blog" element={<Outlet />}>
-                    <Route
-                        key={window.location.pathname}
-                        path="/tack-blog/posts/:categories/:fileName"
-                        element={<Posts />}
-                    />
-
-                    <Route index element={<Home posts={posts} />} />
-                </Route>
+            <Route path="/tack-blog" element={<MainLayout />}>
+                <Route index element={<Home posts={posts} />} />
+                <Route
+                    path="/tack-blog/posts/:categories/:fileName"
+                    element={<Posts />}
+                />
             </Route>
             <Route path="*" element={<NotFound />} />
             <Route path="/tack-blog/qwerdfdf123456" element={<Create />} />
