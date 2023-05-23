@@ -39,6 +39,7 @@
     "react-markdown": "^8.0.7",
     "react-router-dom": "^6.11.2",
     "rehype-highlight": "^6.0.0",
+    "rehype-raw": "^6.1.1",
     "styled-components": "^6.0.0-rc.1",
     "vite-plugin-env-compatible": "^1.1.1",
     "vite-tsconfig-paths": "^4.2.0"

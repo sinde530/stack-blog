@@ -1,20 +1,12 @@
 /* eslint-disable react/no-array-index-key */
-import Heading from 'src/common/Heading';
-import calenderImage from 'src/assets/images/calendar.png';
-import { Link } from 'react-router-dom';
-import { filePaths, getFileData } from 'src/common/markdownTranslation';
+// Additional imports needed
 import { useEffect, useState } from 'react';
-
-import {
-    CalenderImage,
-    Container,
-    PostContainer,
-    TagBox,
-    TagText,
-    Title,
-    TodayBox,
-    WirteDate,
-} from './styled';
+import ReactMarkdown from 'react-markdown';
+import rehypeHighlight from 'rehype-highlight';
+import rehypeRaw from 'rehype-raw';
+import { fetchFileContents, filePaths } from 'src/common/markdownTranslation';
+import Heading from 'src/common/Heading';
+import { Container, PostContainer } from './styled';
 
 interface FileData {
     title: string;
@@ -22,35 +14,29 @@ interface FileData {
     tags: string[];
 }
 
+// Inside your Section component
 export default function Section() {
+    const [markdownContent, setMarkdownContent] = useState<string>('');
     const [fileDataList, setFileDataList] = useState<FileData[]>([]);
 
     useEffect(() => {
-        const getFileDataForAllFiles = async () => {
+        // Additional useEffect for fetching and setting markdown content
+        const fetchMarkdown = async (filePath: string) => {
             try {
-                const fileDataPromises = filePaths.map((filePath) =>
-                    getFileData(filePath),
-                );
-                const allFileData = (
-                    await Promise.all(fileDataPromises)
-                ).filter(Boolean) as FileData[];
-
-                allFileData.forEach((data) => {
-                    if (data) {
-                        const { title, date, tags } = data;
-                        console.log(title, date, tags);
-                    }
-                });
-
-                setFileDataList(allFileData);
+                const markdown = await fetchFileContents(filePath);
+                setMarkdownContent(markdown);
             } catch (error) {
                 console.error(error);
             }
         };
 
-        getFileDataForAllFiles();
-    }, []);
+        // Call this function with the required filePath
+        fetchMarkdown(filePaths[0]); // filePaths[0] can be replaced with the required file path
+    }, [fileDataList]);
 
+    // Keep your existing code
+
+    // Add ReactMarkdown component for rendering markdown
     return (
         <Container>
             <Heading>Recent Posts</Heading>
@@ -59,30 +45,14 @@ export default function Section() {
                 (fileData, index) =>
                     fileData && (
                         <PostContainer key={index}>
-                            <Link to="/">
-                                <TodayBox>
-                                    <CalenderImage
-                                        src={calenderImage}
-                                        alt={`${calenderImage} error`}
-                                    />
-                                    <WirteDate>{fileData.date}</WirteDate>
-                                </TodayBox>
-                            </Link>
-
-                            <Link to="/">
-                                <Title>{fileData.title}</Title>
-                            </Link>
-
-                            <TagBox>
-                                {fileData.tags.map((tag, tagIndex) => (
-                                    <TagText key={tagIndex} to={`/${tag}`}>
-                                        {tag}
-                                    </TagText>
-                                ))}
-                            </TagBox>
+                            {/* Keep your existing code */}
                         </PostContainer>
                     ),
             )}
+
+            <ReactMarkdown rehypePlugins={[rehypeRaw, rehypeHighlight]}>
+                {markdownContent}
+            </ReactMarkdown>
         </Container>
     );
 }
