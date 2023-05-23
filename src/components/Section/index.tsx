@@ -1,10 +1,8 @@
 /* eslint-disable react/no-array-index-key */
-// Additional imports needed
 import { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import rehypeHighlight from 'rehype-highlight';
 import rehypeRaw from 'rehype-raw';
-import { fetchFileContents, filePaths } from 'src/common/markdownTranslation';
 import Heading from 'src/common/Heading';
 import { Container, PostContainer } from './styled';
 
@@ -12,47 +10,56 @@ interface FileData {
     title: string;
     date: string;
     tags: string[];
+    content: string;
 }
 
-// Inside your Section component
+async function fetchFileContents(filePath: string): Promise<string> {
+    const response = await fetch(filePath);
+    return response.text();
+}
+
+function getFilePaths(): string[] {
+    return ['tack-blog/posts/blog/first-write.md'];
+}
+
 export default function Section() {
-    const [markdownContent, setMarkdownContent] = useState<string>('');
     const [fileDataList, setFileDataList] = useState<FileData[]>([]);
 
     useEffect(() => {
-        // Additional useEffect for fetching and setting markdown content
-        const fetchMarkdown = async (filePath: string) => {
+        const fetchAllFiles = async () => {
+            const filePaths = getFilePaths();
             try {
-                const markdown = await fetchFileContents(filePath);
-                setMarkdownContent(markdown);
+                const allFileContents = await Promise.all(
+                    filePaths.map(async (filePath) => {
+                        const content = await fetchFileContents(filePath);
+                        const fileData: FileData = {
+                            title: 'Title',
+                            date: 'Date',
+                            tags: ['tag1', 'tag2'],
+                            content,
+                        };
+                        return fileData;
+                    }),
+                );
+                setFileDataList(allFileContents);
             } catch (error) {
                 console.error(error);
             }
         };
 
-        // Call this function with the required filePath
-        fetchMarkdown(filePaths[0]); // filePaths[0] can be replaced with the required file path
-    }, [fileDataList]);
+        fetchAllFiles();
+    }, []);
 
-    // Keep your existing code
-
-    // Add ReactMarkdown component for rendering markdown
     return (
         <Container>
             <Heading>Recent Posts</Heading>
-
-            {fileDataList.map(
-                (fileData, index) =>
-                    fileData && (
-                        <PostContainer key={index}>
-                            {/* Keep your existing code */}
-                        </PostContainer>
-                    ),
-            )}
-
-            <ReactMarkdown rehypePlugins={[rehypeRaw, rehypeHighlight]}>
-                {markdownContent}
-            </ReactMarkdown>
+            {fileDataList.map((fileData, index) => (
+                <PostContainer key={index}>
+                    <ReactMarkdown rehypePlugins={[rehypeRaw, rehypeHighlight]}>
+                        {fileData.content}
+                    </ReactMarkdown>
+                </PostContainer>
+            ))}
         </Container>
     );
 }
