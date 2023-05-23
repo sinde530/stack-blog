@@ -24,7 +24,7 @@ export const getFileData = async (
     return attributes;
 };
 
-export const filePaths = ['/tack-blog/posts/tutorial/README.md'];
+export const filePaths = ['/tack-blog/posts/blog/first-write.md'];
 
 const getFileDataForFiles = async () => {
     try {
