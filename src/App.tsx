@@ -1,6 +1,7 @@
 import { Outlet, Route, Routes } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
+import axios from 'axios';
 import MainLayout from './layouts/MainLayout';
 
 import Home from './components/Home';
@@ -17,22 +18,21 @@ type PostProps = {
     tags: string[];
 };
 
+const fetchPostData = async (url: string, setPosts: Function) => {
+    try {
+        const { data } = await axios.get(url);
+        setPosts(data);
+    } catch (error: any) {
+        console.error(`error checked ${error.message}`);
+    }
+};
+
 export default function App() {
     const [posts, setPosts] = useState<PostProps[]>([]);
     const url = './posts/index.json';
 
-    const fetchPostData = async () => {
-        const response = await fetch(url, {
-            headers: {
-                Accept: 'application/json',
-            },
-        });
-        const data = await response.json();
-        setPosts(data);
-    };
-
     useEffect(() => {
-        fetchPostData();
+        fetchPostData(url, setPosts);
     }, []);
 
     return (
