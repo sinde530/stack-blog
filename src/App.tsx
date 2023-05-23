@@ -1,11 +1,13 @@
 import { Outlet, Route, Routes } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+
 import MainLayout from './layouts/MainLayout';
+
 import Home from './components/Home';
-import NotFound from './components/NotFound';
 import Create from './components/Create';
 import Posts from './components/Posts';
-// import PostList from './components/PostList';
+
+import NotFound from './components/NotFound';
 
 type PostProps = {
     categories: string;
@@ -38,12 +40,11 @@ export default function App() {
             <Route element={<MainLayout />}>
                 <Route path="/tack-blog" element={<Outlet />}>
                     <Route
-                        path="/tack-blog/posts/:folderName/:fileName/:title"
+                        path="/tack-blog/posts/:categories/:fileName"
                         element={<Posts />}
                     />
 
                     <Route index element={<Home posts={posts} />} />
-                    {/* <Route index element={<PostList posts={posts} />} /> */}
                 </Route>
             </Route>
             <Route path="*" element={<NotFound />} />
