@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import logo from 'src/assets/images/logo.png';
 
 import Sidebar from '../Sidebar';
-import Section from '../Section';
+import PostList from '../PostList';
 
 export const Container = styled.div({
     maxWidth: '1440px',
@@ -97,7 +97,7 @@ export default function Home() {
             </Header>
             <MainContents>
                 <Sidebar />
-                <Section />
+                <PostList />
             </MainContents>
         </Container>
     );
