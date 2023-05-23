@@ -12,4 +12,4 @@ categories: blog
 
 -   가나다라
 
-// public/posts/blog
+// public/posts/blog/first-write
