@@ -22,10 +22,12 @@ export default function PostList({ posts }: PostListProps) {
         const fetchPosts = async () => {
             try {
                 const response = await fetch('./posts/index.json');
+                console.log('response url:', response);
                 if (!response.ok) {
                     throw new Error('Error fetching posts');
                 }
                 const postsData: PostProps[] = await response.json();
+                console.log('postsData: ', postsData);
                 setPostList(postsData);
             } catch (error) {
                 console.error('Failed to fetch posts:', error);
