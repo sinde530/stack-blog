@@ -21,7 +21,7 @@ export default function PostList({ posts }: PostListProps) {
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const response = await fetch('./posts/index.json');
+                const response = await fetch('/posts/index.json');
                 console.log('response url:', response);
                 if (!response.ok) {
                     throw new Error('Error fetching posts');
