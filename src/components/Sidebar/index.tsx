@@ -71,7 +71,7 @@ export const Li = styled.li({
 
 export default function Sidebar() {
     const image =
-        'https://dummyimage.com/1000x800/000000/fff&text=Prifle+Image';
+        'https://dummyimage.com/1000x800/000000/fff&text=Prifle+Image.';
 
     return (
         <Container>
