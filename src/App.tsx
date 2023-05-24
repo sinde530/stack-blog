@@ -39,13 +39,10 @@ export default function App() {
         <Routes>
             <Route path="/tack-blog" element={<MainLayout />}>
                 <Route index element={<Home posts={posts} />} />
-                <Route
-                    path="/tack-blog/posts/:categories/:fileName"
-                    element={<Posts />}
-                />
+                <Route path="posts/:categories/:fileName" element={<Posts />} />
+                <Route path="qwerdfdf123456" element={<Create />} />
             </Route>
             <Route path="*" element={<NotFound />} />
-            <Route path="/tack-blog/qwerdfdf123456" element={<Create />} />
         </Routes>
     );
 }
