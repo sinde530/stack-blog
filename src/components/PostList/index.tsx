@@ -42,9 +42,7 @@ export default function PostList({ posts }: PostListProps) {
             {postList.map((post, index) => (
                 <div key={index}>
                     <p>{post.date}</p>
-                    <Link
-                        to={`/tack-blog/posts/${post.categories}/${post.fileName}`}
-                    >
+                    <Link to={`/posts/${post.categories}/${post.fileName}`}>
                         {post.title}
                     </Link>
                     <ul>
