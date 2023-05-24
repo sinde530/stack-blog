@@ -18,7 +18,7 @@ export default function Posts() {
         const fetchPostContent = async () => {
             try {
                 setIsLoading(true);
-                const url = `/posts/${categories}/${fileName}.md`;
+                const url = `/tack-blog/posts/${categories}/${fileName}.md`;
 
                 console.log('Fetching post from:', url);
                 const response = await fetch(url);

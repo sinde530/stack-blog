@@ -29,7 +29,7 @@ const fetchPostData = async (url: string, setPosts: Function) => {
 
 export default function App() {
     const [posts, setPosts] = useState<PostProps[]>([]);
-    const url = '/posts/index.json';
+    const url = '/tack-blog/posts/index.json';
 
     useEffect(() => {
         fetchPostData(url, setPosts);
