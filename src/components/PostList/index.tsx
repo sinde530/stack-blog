@@ -21,7 +21,7 @@ export default function PostList({ posts }: PostListProps) {
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const response = await fetch('/tack-blog/posts/index.json');
+                const response = await fetch('/posts/index.json');
                 console.log('response url:', response);
                 if (!response.ok) {
                     throw new Error('Error fetching posts');
@@ -42,7 +42,7 @@ export default function PostList({ posts }: PostListProps) {
             {postList.map((post, index) => (
                 <div key={index}>
                     <p>{post.date}</p>
-                    <Link to={`./posts/${post.categories}/${post.fileName}`}>
+                    <Link to={`/posts/${post.categories}/${post.fileName}`}>
                         {post.title}
                     </Link>
                     <ul>

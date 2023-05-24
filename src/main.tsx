@@ -7,7 +7,7 @@ import { GlobalStyle } from './common/global';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <React.StrictMode>
-        <BrowserRouter>
+        <BrowserRouter basename="/tack-blog">
             <GlobalStyle />
             <App />
         </BrowserRouter>

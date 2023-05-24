@@ -63,7 +63,7 @@ export default function Header() {
     return (
         <HeaderContainer>
             <HeaderLeftBox>
-                <LogoText to="/tack-blog/">
+                <LogoText to="/">
                     sinde530 tack blog. &zwj;
                     <LogoImage src={logo} alt={`${logo} error`} />
                 </LogoText>
@@ -71,10 +71,10 @@ export default function Header() {
             <HeaderRightBox>
                 <ListItem>
                     <Item>
-                        <LinkTo to="/tack-blog/">Home</LinkTo>
+                        <LinkTo to="/">Home</LinkTo>
                     </Item>
                     <Item>
-                        <LinkTo to="/tack-blog/category">Category</LinkTo>
+                        <LinkTo to="/category">Category</LinkTo>
                     </Item>
                 </ListItem>
             </HeaderRightBox>

@@ -29,7 +29,7 @@ const fetchPostData = async (url: string, setPosts: Function) => {
 
 export default function App() {
     const [posts, setPosts] = useState<PostProps[]>([]);
-    const url = '/tack-blog/posts/index.json';
+    const url = '/posts/index.json';
 
     useEffect(() => {
         fetchPostData(url, setPosts);
@@ -37,13 +37,13 @@ export default function App() {
 
     return (
         <Routes>
-            <Route path="/tack-blog/" element={<MainLayout />}>
+            <Route element={<MainLayout />}>
                 <Route index element={<Home posts={posts} />} />
                 <Route
-                    path="/tack-blog/posts/:categories/:fileName"
+                    path="/posts/:categories/:fileName"
                     element={<Posts />}
                 />
-                <Route path="/tack-blog/qwerdfdf123456" element={<Create />} />
+                <Route path="/qwerdfdf123456" element={<Create />} />
             </Route>
             <Route path="*" element={<NotFound />} />
         </Routes>
