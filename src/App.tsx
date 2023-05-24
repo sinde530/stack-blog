@@ -37,7 +37,7 @@ export default function App() {
 
     return (
         <Routes>
-            <Route path="/tack-blog" element={<MainLayout />}>
+            <Route path="/tack-blog/" element={<MainLayout />}>
                 <Route index element={<Home posts={posts} />} />
                 <Route path="posts/:categories/:fileName" element={<Posts />} />
                 <Route path="qwerdfdf123456" element={<Create />} />
