@@ -20,11 +20,21 @@ export default function Posts() {
             try {
                 setIsLoading(true);
 
+                // const response = await axios.get(
+                //     `/tack-blog/posts/${categories}/${fileName}.md`,
+                // );
+
                 const response = await axios.get(
-                    `/tack-blog/posts/${categories}/${fileName}.md`,
+                    `/tack-blog/posts/${categories}/${fileName?.replace(
+                        '.md',
+                        '',
+                    )}.md`,
                 );
 
                 console.log('response Fetching post from:', response);
+                console.log(
+                    `Fetching post from: /tack-blog/posts/${categories}/${fileName}.md`,
+                );
 
                 if (response.status !== 200) {
                     throw new Error('Error fetching post');
