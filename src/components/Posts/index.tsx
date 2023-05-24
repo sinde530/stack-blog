@@ -18,11 +18,12 @@ export default function Posts() {
         const fetchPostContent = async () => {
             try {
                 setIsLoading(true);
-                const url = `/tack-blog/posts/${categories}/${fileName}.md`;
+                // const url = `/tack-blog/posts/${categories}/${fileName}.md`;
+                const url = `/posts/${categories}/${fileName}.md`;
                 console.log('Fetching post from:', url);
                 const response = await fetch(url);
 
-                console.log('Fetching post from:', url);
+                console.log('response Fetching post from:', url);
 
                 if (!response.ok) {
                     throw new Error('Error fetching post');
