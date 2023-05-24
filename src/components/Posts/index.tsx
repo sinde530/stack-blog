@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import rehypeHighlight from 'rehype-highlight';
+import axios from 'axios';
 
 export type PostProps = {
     categories: string;
@@ -17,20 +18,19 @@ export default function Posts() {
     useEffect(() => {
         const fetchPostContent = async () => {
             try {
-                setIsLoading(true); //
-                // const url = `/tack-blog/posts/${categories}/${fileName}.md`;
+                setIsLoading(true);
 
-                const response = await fetch(
+                const response = await axios.get(
                     `/tack-blog/posts/${categories}/${fileName}.md`,
                 );
 
                 console.log('response Fetching post from:', response);
 
-                if (!response.ok) {
+                if (response.status !== 200) {
                     throw new Error('Error fetching post');
                 }
-                const mdSources = await response.text();
-                setMdSource(mdSources);
+
+                setMdSource(response.data);
             } catch (error) {
                 console.error('Failed to fetch post:', error);
             } finally {
