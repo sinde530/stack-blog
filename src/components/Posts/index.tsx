@@ -17,13 +17,14 @@ export default function Posts() {
     useEffect(() => {
         const fetchPostContent = async () => {
             try {
-                setIsLoading(true);
-                const url = `/tack-blog/posts/${categories}/${fileName}.md`;
+                setIsLoading(true); //
+                // const url = `/tack-blog/posts/${categories}/${fileName}.md`;
 
-                console.log('Fetching post from:', url);
-                const response = await fetch(url);
+                const response = await fetch(
+                    `/tack-blog/posts/${categories}/${fileName}.md`,
+                );
 
-                console.log('response Fetching post from:', url);
+                console.log('response Fetching post from:', response);
 
                 if (!response.ok) {
                     throw new Error('Error fetching post');
