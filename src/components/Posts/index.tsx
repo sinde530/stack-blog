@@ -21,7 +21,7 @@ export default function Posts() {
                 setIsLoading(true);
 
                 const response = await axios.get(
-                    `/posts/${categories}/${fileName}.md`,
+                    `./posts/${categories}/${fileName}.md`,
                 );
 
                 console.log('response Fetching post from:', response);
