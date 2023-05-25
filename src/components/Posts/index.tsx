@@ -25,8 +25,11 @@ export default function Posts({ posts }: { posts: PostProps[] }) {
             try {
                 setIsLoading(true);
 
+                // const response = await axios.get(
+                //     `posts/${categories}/${fileName}.md`,
+                // );
                 const response = await axios.get(
-                    `./posts/${categories}/${fileName}.md`,
+                    `${window.location.origin}/tack-blog/posts/${categories}/${fileName}.md`,
                 );
 
                 console.log('response Fetching post from:', response);
