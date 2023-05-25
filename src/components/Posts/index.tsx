@@ -64,9 +64,9 @@ export default function Posts({ posts }: { posts: PostProps[] }) {
                         <ReactMarkdown
                             className="markdown"
                             rehypePlugins={[rehypeHighlight]}
-                            children={mdSource}
-                        />
-
+                        >
+                            {mdSource}
+                        </ReactMarkdown>
                         <h1>{post?.title}</h1>
                         <p>{post?.date}</p>
                         <div>
