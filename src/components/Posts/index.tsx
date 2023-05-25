@@ -25,7 +25,9 @@ export default function Posts({ posts }: { posts: PostProps[] }) {
                 setIsLoading(true);
 
                 const response = await axios.get(
-                    `https://raw.githubusercontent.com/sinde530/tack-blog/master/public/posts/${categories}/${fileName}.md`,
+                    `${
+                        import.meta.env.VITE_PUBLIC_URL
+                    }/posts/${categories}/${fileName}.md`,
                 );
 
                 setMdSource(response.data);
