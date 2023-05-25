@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import rehypeHighlight from 'rehype-highlight';
-import axios from 'axios';
 import { PostProps } from 'src/App';
+import axios from 'axios';
 
 export type ParamProps = {
     categories: string;
@@ -25,22 +25,11 @@ export default function Posts({ posts }: { posts: PostProps[] }) {
                 setIsLoading(true);
 
                 const response = await axios.get(
-                    // `/tack-blog/posts/${categories}/${fileName}.md`,
-                    `${
-                        import.meta.env.VITE_PUBLIC_URL
-                    }/posts/${categories}/${fileName}.md`,
+                    `/tack-blog/posts/${categories}/${fileName}.md`,
                 );
 
-                console.log('response Fetching post from:', response);
-                console.log(
-                    `Fetching post from: /tack-blog/posts/${categories}/${fileName}.md`,
-                );
-
-                if (response.status !== 200) {
-                    throw new Error('Error fetching post');
-                }
-
-                setMdSource(response.data);
+                const markdownContent = response.data;
+                setMdSource(markdownContent);
             } catch (error) {
                 console.error('Failed to fetch post:', error);
             } finally {
@@ -50,6 +39,31 @@ export default function Posts({ posts }: { posts: PostProps[] }) {
 
         fetchPostContent();
     }, [categories, fileName]);
+
+    // useEffect(() => {
+    //     const fetchPostContent = async () => {
+    //         try {
+    //             setIsLoading(true);
+
+    //             const response = await fetch(
+    //                 `/tack-blog/posts/${categories}/${fileName}.md`,
+    //             );
+
+    //             if (!response.ok) {
+    //                 throw new Error('Error fetching post');
+    //             }
+
+    //             const markdownContent = await response.text();
+    //             setMdSource(markdownContent);
+    //         } catch (error) {
+    //             console.error('Failed to fetch post:', error);
+    //         } finally {
+    //             setIsLoading(false);
+    //         }
+    //     };
+
+    //     fetchPostContent();
+    // }, [categories, fileName]);
 
     return (
         <div className="post">
@@ -66,6 +80,7 @@ export default function Posts({ posts }: { posts: PostProps[] }) {
                         >
                             {mdSource}
                         </ReactMarkdown>
+
                         <h1>{post?.title}</h1>
                         <p>{post?.date}</p>
                         <div>
