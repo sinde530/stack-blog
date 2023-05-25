@@ -29,7 +29,7 @@ export default function Posts({ posts }: { posts: PostProps[] }) {
                 //     `posts/${categories}/${fileName}.md`,
                 // );
                 const response = await axios.get(
-                    `${window.location.origin}/tack-blog/posts/${categories}/${fileName}.md`,
+                    `/tack-blog/posts/${categories}/${fileName}.md`,
                 );
 
                 console.log('response Fetching post from:', response);
@@ -64,9 +64,9 @@ export default function Posts({ posts }: { posts: PostProps[] }) {
                         <ReactMarkdown
                             className="markdown"
                             rehypePlugins={[rehypeHighlight]}
-                        >
-                            {mdSource}
-                        </ReactMarkdown>
+                            children={mdSource}
+                        />
+
                         <h1>{post?.title}</h1>
                         <p>{post?.date}</p>
                         <div>
