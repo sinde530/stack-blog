@@ -1,48 +1,35 @@
-// markdownTranslation.ts
-import frontMatter from 'front-matter';
+import * as fs from 'fs';
+import * as path from 'path';
+import * as matter from 'gray-matter';
+import * as MarkdownIt from 'markdown-it';
 
-interface FileData {
-    title: string;
-    date: string;
-    tags: string[];
+const md = new (MarkdownIt as any)();
+
+const POSTS_DIR = path.join(__dirname, '/posts');
+const OUT_DIR = path.join(__dirname, '/posts');
+const OUT_FILE = path.join(OUT_DIR, '/posts/index.json');
+
+if (!fs.existsSync(OUT_DIR)) {
+    fs.mkdirSync(OUT_DIR, { recursive: true });
 }
 
-export const fetchFileContents = async (filePath: string) => {
-    const response = await fetch(filePath);
-    const fileContents = await response.text();
-    return fileContents;
-};
+const files = fs.readdirSync(POSTS_DIR);
+const posts = files.map((file: string) => {
+    const markdownWithMeta = fs.readFileSync(
+        path.join(POSTS_DIR, file),
+        'utf-8',
+    );
 
-export const getFileData = async (
-    filePath: string,
-): Promise<FileData | null> => {
-    const fileContents = await fetchFileContents(filePath);
-    if (!fileContents) {
-        console.error(`No file contents found at path: ${filePath}`);
-        return null; // Return null if file contents not found
-    }
-    const { attributes }: { attributes: FileData } = frontMatter(fileContents);
-    return attributes;
-};
+    // Get metadata and content from markdown
+    const { data: metadata, content } = matter.read(markdownWithMeta);
 
-export const filePaths = ['/tack-blog/posts/blog/first-write.md'];
+    // Convert markdown to html
+    const htmlContent = md.render(content);
 
-const getFileDataForFiles = async () => {
-    try {
-        await Promise.all(
-            filePaths.map(async (filePath) => {
-                const fileData = await getFileData(filePath);
-                if (!fileData) {
-                    console.error(`File data is null for path: ${filePath}`);
-                    return;
-                }
-                const { title, date, tags } = fileData;
-                console.log(title, date, tags);
-            }),
-        );
-    } catch (error) {
-        console.error(error);
-    }
-};
+    return {
+        metadata,
+        content: htmlContent,
+    };
+});
 
-getFileDataForFiles();
+fs.writeFileSync(OUT_FILE, JSON.stringify(posts, null, 2));
