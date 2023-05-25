@@ -14,6 +14,7 @@ export default function Posts({ posts }: { posts: PostProps[] }) {
     const { categories, fileName } = useParams<ParamProps>();
     const [mdSource, setMdSource] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(true);
+    const url = `https://raw.githubusercontent.com/sinde530/tack-blog/master/public/posts/${categories}/${fileName}.md`;
 
     const post = posts.find(
         (item) => item.categories === categories && item.fileName === fileName,
@@ -21,21 +22,10 @@ export default function Posts({ posts }: { posts: PostProps[] }) {
 
     useEffect(() => {
         const fetchPostContent = async () => {
-            const url = `${
-                import.meta.env.VITE_PUBLIC_URL
-            }/posts/${categories}/${fileName}.md`;
-            console.log('url:', url);
-
-            console.log('VITE_PUBLIC_URL:', import.meta.env.VITE_PUBLIC_URL);
-
             try {
                 setIsLoading(true);
 
-                const response = await axios.get(
-                    `${
-                        import.meta.env.VITE_PUBLIC_URL
-                    }/${categories}/${fileName}.md`,
-                );
+                const response = await axios.get(url);
 
                 setMdSource(response.data);
             } catch (error) {
