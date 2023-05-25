@@ -45,3 +45,9 @@ git commit -m "dist child commit"
 
 git subtree push --prefix dist origin gh-pages
 ```
+
+<br>
+
+## Test Code
+
+**I will write a test code using jest.**
