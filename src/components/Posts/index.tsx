@@ -21,6 +21,13 @@ export default function Posts({ posts }: { posts: PostProps[] }) {
 
     useEffect(() => {
         const fetchPostContent = async () => {
+            const url = `${
+                import.meta.env.VITE_PUBLIC_URL
+            }/posts/${categories}/${fileName}.md`;
+            console.log('url:', url);
+
+            console.log('VITE_PUBLIC_URL:', import.meta.env.VITE_PUBLIC_URL);
+
             try {
                 setIsLoading(true);
 
