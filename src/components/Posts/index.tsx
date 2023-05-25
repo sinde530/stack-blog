@@ -27,7 +27,7 @@ export default function Posts({ posts }: { posts: PostProps[] }) {
                 const response = await axios.get(
                     `${
                         import.meta.env.VITE_PUBLIC_URL
-                    }/posts/${categories}/${fileName}.md`,
+                    }/${categories}/${fileName}.md`,
                 );
 
                 setMdSource(response.data);
