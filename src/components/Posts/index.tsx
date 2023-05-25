@@ -1,27 +1,33 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
+import { Link, useParams } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
-import { useParams } from 'react-router-dom';
 import rehypeHighlight from 'rehype-highlight';
+import axios from 'axios';
+import { PostProps } from 'src/App';
 
 export type ParamProps = {
     categories: string;
     fileName: string;
 };
 
-export default function Posts() {
+export default function Posts({ posts }: { posts: PostProps[] }) {
     const { categories, fileName } = useParams<ParamProps>();
     const [mdSource, setMdSource] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(true);
+
+    const post = posts.find(
+        (item) => item.categories === categories && item.fileName === fileName,
+    );
 
     useEffect(() => {
         const fetchPostContent = async () => {
             try {
                 setIsLoading(true);
+
                 const response = await axios.get(
-                    `/tack-blog/posts/${categories}/${fileName}.md`,
+                    `https://raw.githubusercontent.com/sinde530/tack-blog/blob/master/public/posts/${categories}/${fileName}.md`,
                 );
-                console.log(response);
+
                 setMdSource(response.data);
             } catch (error) {
                 console.error('Failed to fetch post:', error);
@@ -33,21 +39,29 @@ export default function Posts() {
         fetchPostContent();
     }, [categories, fileName]);
 
-    if (isLoading) {
-        <div>Loading...</div>;
-    }
-
     return (
         <div className="post">
-            {mdSource ? (
-                <ReactMarkdown
-                    className="markdown"
-                    rehypePlugins={[rehypeHighlight]}
-                >
-                    {mdSource}
-                </ReactMarkdown>
+            {isLoading ? (
+                <div>
+                    <span>Loading</span>
+                </div>
             ) : (
-                <div>Loading...</div>
+                mdSource && (
+                    <>
+                        <ReactMarkdown
+                            className="markdown"
+                            rehypePlugins={[rehypeHighlight]}
+                        >
+                            {mdSource}
+                        </ReactMarkdown>
+
+                        <h1>{post?.title}</h1>
+                        <p>{post?.date}</p>
+                        <div>
+                            <Link to="/tack-blog">Home</Link>
+                        </div>
+                    </>
+                )
             )}
         </div>
     );

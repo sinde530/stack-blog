@@ -43,7 +43,7 @@ export default function App() {
                 <Route index element={<Home posts={posts} />} />
                 <Route
                     path="/posts/:categories/:fileName"
-                    element={<Posts />}
+                    element={<Posts posts={posts} />}
                 />
                 <Route path="/qwerdfdf123456" element={<Create />} />
             </Route>
