@@ -10,7 +10,7 @@ import Posts from './components/Posts';
 
 import NotFound from './components/NotFound';
 
-type PostProps = {
+export type PostProps = {
     categories: string;
     fileName: string;
     title: string;
@@ -21,6 +21,7 @@ type PostProps = {
 const fetchPostData = async (url: string, setPosts: Function) => {
     try {
         const { data } = await axios.get(url);
+        console.log('data: ', data);
         setPosts(data);
     } catch (error: any) {
         console.error(`error checked ${error.message}`);
@@ -32,6 +33,7 @@ export default function App() {
     const url = '/tack-blog/posts/index.json';
 
     useEffect(() => {
+        console.log('posts', posts);
         fetchPostData(url, setPosts);
     }, []);
 
@@ -41,7 +43,7 @@ export default function App() {
                 <Route index element={<Home posts={posts} />} />
                 <Route
                     path="/posts/:categories/:fileName"
-                    element={<Posts />}
+                    element={<Posts posts={posts} />}
                 />
                 <Route path="/qwerdfdf123456" element={<Create />} />
             </Route>

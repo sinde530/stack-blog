@@ -3,17 +3,22 @@ import { Link, useParams } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import rehypeHighlight from 'rehype-highlight';
 import axios from 'axios';
+import { PostProps } from 'src/App';
 
-export type PostProps = {
+export type ParamProps = {
     categories: string;
     fileName: string;
-    title: string;
 };
 
-export default function Posts() {
-    const { categories, fileName, title } = useParams<PostProps>();
+export default function Posts({ posts }: { posts: PostProps[] }) {
+    const { categories, fileName } = useParams<ParamProps>();
     const [mdSource, setMdSource] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(true);
+
+    // the post to be rendered
+    const post = posts.find(
+        (item) => item.categories === categories && item.fileName === fileName,
+    );
 
     useEffect(() => {
         const fetchPostContent = async () => {
@@ -21,7 +26,7 @@ export default function Posts() {
                 setIsLoading(true);
 
                 const response = await axios.get(
-                    `./posts/${categories}/${fileName}.md`,
+                    `/tack-blog/posts/${categories}/${fileName}.md`,
                 );
 
                 console.log('response Fetching post from:', response);
@@ -42,7 +47,7 @@ export default function Posts() {
         };
 
         fetchPostContent();
-    }, [categories, fileName, title]);
+    }, [categories, fileName]);
 
     return (
         <div className="post">
@@ -59,7 +64,8 @@ export default function Posts() {
                         >
                             {mdSource}
                         </ReactMarkdown>
-
+                        <h1>{post?.title}</h1>
+                        <p>{post?.date}</p>
                         <div>
                             <Link to="/tack-blog">Home</Link>
                         </div>
