@@ -19,11 +19,6 @@ jobs:
               run: |
                   yarn install
 
-            - name: Compile and Run markdownTranslation script
-              run: |
-                  tsc src/common/markdownTranslation.ts --outDir dist
-                  node dist/markdownTranslation.js
-
             - name: yarn Build 🔧
               run: |
                   yarn build
