@@ -15,7 +15,6 @@ export default function Posts({ posts }: { posts: PostProps[] }) {
     const [mdSource, setMdSource] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(true);
 
-    // the post to be rendered
     const post = posts.find(
         (item) => item.categories === categories && item.fileName === fileName,
     );
