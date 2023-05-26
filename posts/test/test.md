@@ -4,6 +4,7 @@ date: '2022-06-26'
 author: Crong
 tags: ['tutorial', 'blog', 'test']
 categories: test
+fileName: 'test'
 ---
 
 # 테스트용 마크다운 파일 생성.
