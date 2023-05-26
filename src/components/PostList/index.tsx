@@ -2,28 +2,15 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { PostProps } from 'src/App';
+import postsData from 'src/postsData';
 
-export default function PostList({ posts }: { posts: PostProps[] }) {
+export default function PostList() {
     const [postList, setPostList] = useState<PostProps[]>([]);
-    console.log('1', posts);
+    console.log('1', postList);
 
     useEffect(() => {
-        const fetchPosts = async () => {
-            try {
-                const response = await fetch('/tack-blog/posts/index.json');
-
-                if (!response.ok) {
-                    throw new Error('Error fetching posts');
-                }
-                const postsData: PostProps[] = await response.json();
-                console.log('postsData: ', postsData);
-                setPostList(postsData);
-            } catch (error) {
-                console.error('Failed to fetch posts:', error);
-            }
-        };
-
-        fetchPosts();
+        setPostList(postsData);
+        console.log('posts', postList);
     }, []);
 
     return (
