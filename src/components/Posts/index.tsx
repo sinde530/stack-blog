@@ -15,6 +15,7 @@ export default function Posts({ posts }: { posts: PostProps[] }) {
     const [mdSource, setMdSource] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const url = `https://raw.githubusercontent.com/sinde530/tack-blog/master/public/posts/${categories}/${fileName}.md`;
+    const localUrl = `http://localhost:5173/tack-blog/posts/${categories}/${fileName}.md`;
 
     const post = posts.find(
         (item) => item.categories === categories && item.fileName === fileName,
@@ -25,7 +26,12 @@ export default function Posts({ posts }: { posts: PostProps[] }) {
             try {
                 setIsLoading(true);
 
-                const response = await axios.get(url);
+                let response;
+                try {
+                    response = await axios.get(url);
+                } catch {
+                    response = await axios.get(localUrl);
+                }
 
                 setMdSource(response.data);
             } catch (error) {
