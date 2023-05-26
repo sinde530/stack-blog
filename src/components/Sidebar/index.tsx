@@ -1,12 +1,14 @@
+/* eslint-disable react/no-array-index-key */
 import styled from '@emotion/styled';
 
 import { Link } from 'react-router-dom';
+import postsData from 'src/postsData';
 
 export const Container = styled.div({
-    // width: 'calc(300px - 1em)',
+    width: 'calc(280px - 1em)',
     overflowY: 'auto',
     height: 'calc(100vh - 2em - 2em)',
-    padding: '12px 12px',
+    padding: '18px 18px',
 
     '&::-webkit-scrollbar': {
         width: '8px',
@@ -72,6 +74,11 @@ export const Li = styled.li({
 export default function Sidebar() {
     const image =
         'https://dummyimage.com/1000x800/000000/fff&text=Prifle+Image.';
+    const totalPosts = postsData.length;
+
+    const uniqueCategories = [
+        ...new Set(postsData.map((post) => post.categories)),
+    ];
 
     return (
         <Container>
@@ -94,68 +101,26 @@ export default function Sidebar() {
             <Categories>
                 <WholeTexts>
                     <img src="" alt="" />
-                    전체 글 수 999개
+                    전체 글 수 {totalPosts}개
                 </WholeTexts>
-                <CategoriesBox>
-                    <Span>TypeScript</Span>
-                    <Ul>
-                        <Li>
-                            <Link to="/">List 1 (150개)</Link>
-                        </Li>
-                        <Li>
-                            <Link to="/">List 2 (123개)</Link>
-                        </Li>
-                        <Li>
-                            <Link to="/">List 3 (60개)</Link>
-                        </Li>
-                        <Li>
-                            <Link to="/">List 4 (13개)</Link>
-                        </Li>
-                        <Li>
-                            <Link to="/">List 5 (3개)</Link>
-                        </Li>
-                    </Ul>
-                </CategoriesBox>
-                <CategoriesBox>
-                    <Span>Python</Span>
-                    <Ul>
-                        <Li>
-                            <Link to="/">List 1 (150개)</Link>
-                        </Li>
-                        <Li>
-                            <Link to="/">List 2 (123개)</Link>
-                        </Li>
-                        <Li>
-                            <Link to="/">List 3 (60개)</Link>
-                        </Li>
-                        <Li>
-                            <Link to="/">List 4 (13개)</Link>
-                        </Li>
-                        <Li>
-                            <Link to="/">List 5 (3개)</Link>
-                        </Li>
-                    </Ul>
-                </CategoriesBox>
-                <CategoriesBox>
-                    <Span>Go</Span>
-                    <Ul>
-                        <Li>
-                            <Link to="/">List 1 (150개)</Link>
-                        </Li>
-                        <Li>
-                            <Link to="/">List 2 (123개)</Link>
-                        </Li>
-                        <Li>
-                            <Link to="/">List 3 (60개)</Link>
-                        </Li>
-                        <Li>
-                            <Link to="/">List 4 (13개)</Link>
-                        </Li>
-                        <Li>
-                            <Link to="/">List 5 (3개)</Link>
-                        </Li>
-                    </Ul>
-                </CategoriesBox>
+                {uniqueCategories.map((category) => (
+                    <CategoriesBox key={category}>
+                        <Span>{category}</Span>
+                        <Ul>
+                            {postsData
+                                .filter((post) => post.categories === category)
+                                .map((post, index) => (
+                                    <Li key={index}>
+                                        <Link
+                                            to={`posts/${post.categories}/${post.fileName}`}
+                                        >
+                                            {post.title}
+                                        </Link>
+                                    </Li>
+                                ))}
+                        </Ul>
+                    </CategoriesBox>
+                ))}
             </Categories>
         </Container>
     );
