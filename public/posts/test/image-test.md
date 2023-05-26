@@ -4,6 +4,7 @@ date: '2022-06-26'
 author: Crong
 tags: ['tutorial', 'blog', 'test']
 categories: test
+fileName: 'image-test'
 ---
 
 # 이미지 잘 나오는지 확인
