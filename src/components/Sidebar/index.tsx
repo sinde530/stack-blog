@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 
 export const Container = styled.div({
-    width: 'calc(300px - 1em)',
+    // width: 'calc(300px - 1em)',
     overflowY: 'auto',
     height: 'calc(100vh - 2em - 2em)',
     padding: '12px 12px',

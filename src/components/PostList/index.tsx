@@ -3,6 +3,64 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { PostProps } from 'src/App';
 import postsData from 'src/postsData';
+import styled from '@emotion/styled';
+import Heading from 'src/common/Heading';
+import calenderImage from 'src/assets/images/calendar.png';
+
+export const Container = styled.div({
+    // backgroundColor: 'blue',
+    padding: '12px 12px',
+    width: 'calc(100% - 300px)',
+});
+
+export const PostContainer = styled.div({
+    padding: '16px 0 16px 0',
+});
+
+export const TodayBox = styled.div({
+    display: 'flex',
+});
+
+export const CalenderImage = styled.img({
+    width: '14px',
+    height: '14px',
+    marginRight: '8px',
+});
+
+export const WirteDate = styled.p({
+    fontSize: '14px',
+});
+
+export const Title = styled.p({
+    fontSize: '20px',
+    fontWeight: '600',
+    paddingTop: '8px',
+    paddingBottom: '16px',
+});
+
+export const TagBox = styled.div({
+    display: 'flex',
+});
+
+export const DateBox = styled.div({
+    display: 'flex',
+});
+
+export const TagText = styled(Link)({
+    padding: '3px 8px',
+    marginRight: '10px',
+    marginBottom: '8px',
+    border: '1px solid #373C3F',
+    borderRadius: '4px',
+    backgroundColor: '#6d7275',
+    color: '#ffc005',
+    zIndex: '99999',
+
+    '&:hover': {
+        backgroundColor: '#000',
+        color: '#ffc005',
+    },
+});
 
 export default function PostList() {
     const [postList, setPostList] = useState<PostProps[]>([]);
@@ -14,20 +72,34 @@ export default function PostList() {
     }, []);
 
     return (
-        <div>
+        <Container>
+            <Heading>Recent Posts</Heading>
+
             {postList.map((post, index) => (
-                <div key={index}>
-                    <p>{post.date}</p>
+                <PostContainer key={index}>
                     <Link to={`/posts/${post.categories}/${post.fileName}`}>
-                        {post.title}
+                        <DateBox>
+                            <CalenderImage
+                                src={calenderImage}
+                                alt={`${calenderImage} error`}
+                            />
+                            <WirteDate>{post.date}</WirteDate>
+                        </DateBox>
+
+                        <Title>{post.title}</Title>
                     </Link>
-                    <ul>
-                        {post.tags.map((tag, tagIndex) => (
-                            <li key={tagIndex}>{tag}</li>
-                        ))}
-                    </ul>
-                </div>
+
+                    {Array.isArray(post.tags) &&
+                        post.tags
+                            .join(' ')
+                            .split(' ')
+                            .map((tag, tagIndex) => (
+                                <TagText key={tagIndex} to={`/${tag}`}>
+                                    {tag}
+                                </TagText>
+                            ))}
+                </PostContainer>
             ))}
-        </div>
+        </Container>
     );
 }
