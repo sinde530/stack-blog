@@ -4,7 +4,7 @@ import logo from 'src/assets/images/logo.png';
 
 export const HeaderContainer = styled.header({
     width: '100%',
-    minHeight: '64px',
+    minHeight: '78px',
     maxWidth: '100%',
     display: 'flex',
     fontSize: '20px',
