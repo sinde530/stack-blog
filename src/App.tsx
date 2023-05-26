@@ -7,6 +7,7 @@ import Create from './components/Create';
 import Posts from './components/Posts';
 
 import NotFound from './components/NotFound';
+import Categories from './components/Categories';
 
 export type PostProps = {
     categories: string;
@@ -26,6 +27,7 @@ export default function App() {
                     path="/posts/:categories/:fileName"
                     element={<Posts />}
                 />
+                <Route path="/categories" element={<Categories />} />
                 <Route path="/qwerdfdf123456" element={<Create />} />
             </Route>
             <Route path="*" element={<NotFound />} />
