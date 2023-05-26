@@ -74,7 +74,7 @@ export default function Header() {
                         <LinkTo to="/">Home</LinkTo>
                     </Item>
                     <Item>
-                        <LinkTo to="/category">Category</LinkTo>
+                        <LinkTo to="/categories">Category</LinkTo>
                     </Item>
                 </ListItem>
             </HeaderRightBox>
