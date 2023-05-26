@@ -3,18 +3,6 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { PostProps } from 'src/App';
 
-// type PostProps = {
-//     categories: string;
-//     fileName: string;
-//     title: string;
-//     date: string;
-//     tags: string[];
-// };
-
-// type PostListProps = {
-//     posts: PostProps[];
-// };
-
 export default function PostList({ posts }: { posts: PostProps[] }) {
     const [postList, setPostList] = useState<PostProps[]>([]);
     console.log('1', posts);
@@ -23,7 +11,7 @@ export default function PostList({ posts }: { posts: PostProps[] }) {
         const fetchPosts = async () => {
             try {
                 const response = await fetch('/tack-blog/posts/index.json');
-                console.log('response url:', response);
+
                 if (!response.ok) {
                     throw new Error('Error fetching posts');
                 }
