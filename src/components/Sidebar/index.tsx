@@ -1,20 +1,20 @@
 /* eslint-disable react/no-array-index-key */
-import React, { useState } from 'react';
+import { useState } from 'react';
 import styled from '@emotion/styled';
 
 import { Link } from 'react-router-dom';
 import postsData from 'src/postsData';
+import { keyframes } from '@emotion/react';
 
 type ContainerProps = {
     sidebarVisible: boolean;
 };
 
 export const Container = styled.div<ContainerProps>(({ sidebarVisible }) => ({
-    width: sidebarVisible ? 'calc(280px - 1em)' : '0',
+    width: 'calc(280px - 1em)',
     overflowY: 'auto',
     height: 'calc(100vh - 2em - 2em)',
-    padding: sidebarVisible ? '18px 18px' : '0',
-    transition: 'width 0.3s ease',
+    padding: '18px 18px',
 
     '&::-webkit-scrollbar': {
         width: '8px',
@@ -22,6 +22,9 @@ export const Container = styled.div<ContainerProps>(({ sidebarVisible }) => ({
     '&::-webkit-scrollbar-thumb': {
         backgroundColor: '#888',
         borderRadius: '4px',
+    },
+    '@media (max-width: 750px)': {
+        display: sidebarVisible ? 'initial' : 'none',
     },
 }));
 
@@ -76,21 +79,66 @@ export const Li = styled.li({
     padding: '4px',
 });
 
-export const ToggleButton = styled.button({
-    position: 'absolute',
-    display: 'none',
-    top: '1rem',
-    right: '1rem',
-    padding: '0.5rem',
-    background: 'none',
-    border: 'none',
-    cursor: 'pointer',
-    fontSize: '1.5rem',
+const xAnimation = keyframes`
+    0% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(45deg);
+    }
+    50% {
+        transform: rotate(45deg);
+    }
+    75% {
+        transform: rotate(90deg);
+    }
+    100% {
+        transform: rotate(90deg);
+    }
+`;
 
-    '@media (max-width: 750px)': {
-        display: 'block',
-    },
-});
+export const ToggleButton = styled.button<{ sidebarVisible?: boolean }>`
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  padding: 0.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.5rem;
+  visibility: ${({ sidebarVisible }) =>
+      sidebarVisible ? 'hidden' : 'visible'};
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 1rem;
+    height: 0.2rem;
+    background-color: #000;
+    transform-origin: center;
+    visibility: ${({ sidebarVisible }) =>
+        sidebarVisible ? 'visible' : 'hidden'};
+  }
+
+  &::before {
+    transform: translate(-50%, -50%) rotate(45deg);
+    animation: ${({ sidebarVisible }) =>
+        sidebarVisible ? 'none' : `${xAnimation} 1s infinite`};
+  }
+
+  &::after {
+    transform: translate(-50%, -50%) rotate(-45deg);
+    animation: ${({ sidebarVisible }) =>
+        sidebarVisible ? 'none' : `${xAnimation} 1s infinite`};
+  }
+
+  @media (max-width: 750px) {
+    display: block;
+  }
+};`;
 
 export default function Sidebar() {
     const image =
@@ -99,7 +147,7 @@ export default function Sidebar() {
     const uniqueCategories = [
         ...new Set(postsData.map((post) => post.categories)),
     ];
-    const [sidebarVisible, setSidebarVisible] = useState(true);
+    const [sidebarVisible, setSidebarVisible] = useState(false);
 
     const toggleSidebar = () => {
         setSidebarVisible(!sidebarVisible);
@@ -107,7 +155,12 @@ export default function Sidebar() {
 
     return (
         <>
-            <ToggleButton onClick={toggleSidebar}>&#9776;</ToggleButton>
+            <ToggleButton
+                sidebarVisible={sidebarVisible}
+                onClick={toggleSidebar}
+            >
+                &#9776;
+            </ToggleButton>
             <Container sidebarVisible={sidebarVisible}>
                 <Profile>
                     <ProfileImage src={image} alt="" />
