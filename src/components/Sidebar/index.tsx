@@ -11,7 +11,7 @@ type ContainerProps = {
 export const Container = styled.div<ContainerProps>(({ sidebarVisible }) => ({
     width: 'calc(280px - 1em)',
     overflowY: 'auto',
-    height: 'calc(100vh - 2em - 2em)',
+    height: 'calc(100vh - 2em - 5em)',
     padding: '18px 18px',
 
     '&::-webkit-scrollbar': {

@@ -11,10 +11,18 @@ export const Container = styled.div({
     // backgroundColor: 'blue',
     padding: '12px 12px',
     width: 'calc(100% - 300px)',
+
+    '@media (max-width: 750px)': {
+        width: '100%',
+    },
 });
 
 export const PostContainer = styled.div({
     padding: '16px 0 16px 0',
+
+    '@media (max-width: 750px)': {
+        padding: '16px 4px',
+    },
 });
 
 export const TodayBox = styled.div({
@@ -64,11 +72,9 @@ export const TagText = styled(Link)({
 
 export default function PostList() {
     const [postList, setPostList] = useState<PostProps[]>([]);
-    console.log('1', postList);
 
     useEffect(() => {
         setPostList(postsData);
-        console.log('posts', postList);
     }, []);
 
     return (
