@@ -2,7 +2,6 @@ import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 import logo from 'src/assets/images/logo.png';
 import { css, keyframes } from '@emotion/react';
-import { useState } from 'react';
 
 export const HeaderContainer = styled.header({
     width: '100%',
@@ -131,9 +130,15 @@ export const ToggleButton = styled.button<{ sidebarVisible?: boolean }>`
   }
 };`;
 
-export default function Header() {
-    const [sidebarVisible, setSidebarVisible] = useState(false);
+interface SidebarToggleProps {
+    sidebarVisible: boolean;
+    setSidebarVisible: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
+export default function Header({
+    sidebarVisible,
+    setSidebarVisible,
+}: SidebarToggleProps) {
     const toggleSidebar = () => {
         setSidebarVisible(!sidebarVisible);
     };

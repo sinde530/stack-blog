@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import Footer from 'src/components/Footer';
 import Header from 'src/components/Header';
@@ -17,11 +18,16 @@ export const MainContents = styled.div({
 });
 
 export default function MainLayout() {
+    const [sidebarVisible, setSidebarVisible] = useState<boolean>(false);
+
     return (
         <Container>
-            <Header />
+            <Header
+                sidebarVisible={sidebarVisible}
+                setSidebarVisible={setSidebarVisible}
+            />
             <MainContents>
-                <Sidebar />
+                <Sidebar sidebarVisible={sidebarVisible} />
                 <Outlet />
             </MainContents>
             <Footer />
