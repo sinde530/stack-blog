@@ -78,6 +78,15 @@ const xAnimation = keyframes`
     }
 `;
 
+export const ToggleBox = styled.div({
+    padding: '16px 32px',
+    display: 'none',
+
+    '@media (max-width: 760px)': {
+        display: 'flex',
+    },
+});
+
 export const ToggleButton = styled.button<{ sidebarVisible?: boolean }>`
   position: absolute;
   display: none;
@@ -159,14 +168,14 @@ export default function Header({
                     <Item>
                         <LinkTo to="/categories">Category</LinkTo>
                     </Item>
-                    <Item>
+                    <ToggleBox>
                         <ToggleButton
                             sidebarVisible={sidebarVisible}
                             onClick={toggleSidebar}
                         >
                             &#9776;
                         </ToggleButton>
-                    </Item>
+                    </ToggleBox>
                 </ListItem>
             </HeaderRightBox>
         </HeaderContainer>
