@@ -2,12 +2,12 @@ import { Route, Routes } from 'react-router-dom';
 
 import MainLayout from './layouts/MainLayout';
 
-import Home from './components/Home';
+import Home from './pages/Home';
 import Create from './components/Create';
 import Posts from './components/Posts';
 
-import NotFound from './components/NotFound';
-import Categories from './components/Categories';
+import NotFound from './pages/NotFound';
+import Categories from './pages/Categories';
 
 export type PostProps = {
     categories: string;
