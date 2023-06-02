@@ -1,6 +1,8 @@
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 import logo from 'src/assets/images/logo.png';
+import { css, keyframes } from '@emotion/react';
+import { useState } from 'react';
 
 export const HeaderContainer = styled.header({
     width: '100%',
@@ -59,7 +61,83 @@ export const LinkTo = styled(Link)({
     },
 });
 
+const xAnimation = keyframes`
+    0% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(45deg);
+    }
+    50% {
+        transform: rotate(45deg);
+    }
+    75% {
+        transform: rotate(90deg);
+    }
+    100% {
+        transform: rotate(90deg);
+    }
+`;
+
+export const ToggleButton = styled.button<{ sidebarVisible?: boolean }>`
+  position: absolute;
+  display: none;
+  top: 1rem;
+  right: 1rem;
+  padding: 0.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.5rem;
+  visibility: ${({ sidebarVisible }) =>
+      sidebarVisible ? 'hidden' : 'visible'};
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 1rem;
+    height: 0.2rem;
+    background-color: #000;
+    transform-origin: center;
+    visibility: ${({ sidebarVisible }) =>
+        sidebarVisible ? 'visible' : 'hidden'};
+  }
+
+  &::before {
+    transform: translate(-50%, -50%) rotate(45deg);
+    animation: ${({ sidebarVisible }) =>
+        sidebarVisible
+            ? 'none'
+            : css`
+                  ${xAnimation} 1s infinite
+              `};
+  }
+
+  &::after {
+    transform: translate(-50%, -50%) rotate(-45deg);
+    animation: ${({ sidebarVisible }) =>
+        sidebarVisible
+            ? 'none'
+            : css`
+                  ${xAnimation} 1s infinite
+              `};
+  }
+
+  @media (max-width: 750px) {
+    display: block;
+  }
+};`;
+
 export default function Header() {
+    const [sidebarVisible, setSidebarVisible] = useState(false);
+
+    const toggleSidebar = () => {
+        setSidebarVisible(!sidebarVisible);
+    };
+
     return (
         <HeaderContainer>
             <HeaderLeftBox>
@@ -75,6 +153,14 @@ export default function Header() {
                     </Item>
                     <Item>
                         <LinkTo to="/categories">Category</LinkTo>
+                    </Item>
+                    <Item>
+                        <ToggleButton
+                            sidebarVisible={sidebarVisible}
+                            onClick={toggleSidebar}
+                        >
+                            &#9776;
+                        </ToggleButton>
                     </Item>
                 </ListItem>
             </HeaderRightBox>
