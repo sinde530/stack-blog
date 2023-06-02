@@ -1,3 +1,5 @@
+// Container컴포넌트가 max-width: 750px, 반응형일때, 토글버튼으로 레이어가 깨진다. 정확하게 디스플레이의 사이즈에만 맞게 해줘.
+
 /* eslint-disable react/no-array-index-key */
 import styled from '@emotion/styled';
 
@@ -21,8 +23,17 @@ export const Container = styled.div<ContainerProps>(({ sidebarVisible }) => ({
         backgroundColor: '#888',
         borderRadius: '4px',
     },
+
     '@media (max-width: 750px)': {
-        display: sidebarVisible ? 'initial' : 'none',
+        display: 'block',
+        position: 'absolute',
+        width: '100%',
+        background: '#fff',
+        left: sidebarVisible ? '0' : '-105%',
+        transition: 'left 0.5s ease',
+        overflowY: 'visible',
+        boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.2)',
+        zIndex: 999,
     },
 }));
 
