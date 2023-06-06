@@ -118,8 +118,8 @@ export default function Sidebar({
                 <A href="https://www.naver.com" target="__blank">
                     Email: sinde530@naver.com
                 </A>
-                <A href="example" target="__blank">
-                    GitHub: https://github.com/sinde530
+                <A href="https://github.com/sinde530" target="__blank">
+                    GitHub: sinde530
                 </A>
             </Profile>
             <Categories>
