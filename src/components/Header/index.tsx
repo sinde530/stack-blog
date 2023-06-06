@@ -82,7 +82,7 @@ export const ToggleBox = styled.div({
     padding: '16px 32px',
     display: 'none',
 
-    '@media (max-width: 760px)': {
+    '@media (max-width: 750px)': {
         display: 'flex',
     },
 });
