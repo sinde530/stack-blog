@@ -1,5 +1,3 @@
-// Container컴포넌트가 max-width: 750px, 반응형일때, 토글버튼으로 레이어가 깨진다. 정확하게 디스플레이의 사이즈에만 맞게 해줘.
-
 /* eslint-disable react/no-array-index-key */
 import styled from '@emotion/styled';
 
@@ -25,7 +23,8 @@ export const Container = styled.div<ContainerProps>(({ sidebarVisible }) => ({
     },
 
     '@media (max-width: 750px)': {
-        display: 'block',
+        padding: '0',
+        display: 'table',
         position: 'absolute',
         width: '100%',
         background: '#fff',
@@ -34,6 +33,7 @@ export const Container = styled.div<ContainerProps>(({ sidebarVisible }) => ({
         overflowY: 'visible',
         boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.2)',
         zIndex: 999,
+        marginLeft: sidebarVisible ? '0' : '-100vw',
     },
 }));
 
@@ -44,6 +44,7 @@ export const Div = styled.div({
 
 export const Profile = styled.div({
     display: 'grid',
+    margin: '16px 16px',
 });
 
 export const ProfileImage = styled.img({
@@ -62,6 +63,9 @@ export const A = styled.a({
 
 export const Categories = styled.div({
     paddingTop: '1rem',
+    '@media (max-width: 750px)': {
+        margin: '16px 16px',
+    },
 });
 
 export const WholeTexts = styled.p({
@@ -110,12 +114,10 @@ export default function Sidebar({
                 </Div>
 
                 <A href="https://www.naver.com" target="__blank">
-                    <img src="" alt="" />
-                    Email
+                    Email: sinde530@naver.com
                 </A>
                 <A href="example" target="__blank">
-                    <img src="" alt="" />
-                    GitHub
+                    GitHub: https://github.com/sinde530
                 </A>
             </Profile>
             <Categories>
