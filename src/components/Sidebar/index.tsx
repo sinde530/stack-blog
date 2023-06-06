@@ -44,7 +44,9 @@ export const Div = styled.div({
 
 export const Profile = styled.div({
     display: 'grid',
-    margin: '16px 16px',
+    '@media (max-width: 750px)': {
+        margin: '16px 16px',
+    },
 });
 
 export const ProfileImage = styled.img({
