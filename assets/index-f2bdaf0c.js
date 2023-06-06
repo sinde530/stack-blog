@@ -223,6 +223,7 @@ https://github.com/highlightjs/highlight.js/issues/2277`),b=I,M=N),A===void 0&&(
 
     body {
         box-sizing: border-box;
+        background-color: #a9a9a9;
     }
 
     a {
