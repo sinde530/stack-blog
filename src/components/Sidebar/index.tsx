@@ -30,13 +30,13 @@ export const Container = styled.div<ContainerProps>(({ sidebarVisible }) => ({
         display: 'table',
         position: 'absolute',
         width: '100%',
-        background: '#fff',
         left: sidebarVisible ? '0' : '-105%',
         transition: 'left 0.5s ease',
         overflowY: 'visible',
         boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.2)',
         zIndex: 999,
         marginLeft: sidebarVisible ? '0' : '-100vw',
+        background: '#a9a9a9',
     },
 }));
 
