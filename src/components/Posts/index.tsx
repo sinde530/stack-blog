@@ -3,6 +3,46 @@ import { Link, useParams } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import rehypeHighlight from 'rehype-highlight';
 import axios from 'axios';
+import styled from '@emotion/styled';
+
+export const Container = styled.div({
+    padding: '12px 12px',
+    width: 'calc(100% - 300px)',
+
+    '@media (max-width: 750px)': {
+        width: '100%',
+    },
+});
+
+const MarkdownStyle = styled.div({
+    fontFamily: '"Arial", sans-serif',
+    lineHeight: '1.5',
+    color: '#333',
+    h1: {
+        fontSize: '2.5em',
+        borderBottom: '1px solid #eaecef',
+    },
+    h2: {
+        fontSize: '2em',
+        color: '#0366d6',
+    },
+    p: {
+        marginBottom: '1em',
+    },
+    a: {
+        color: '#0366d6',
+        textDecoration: 'none',
+    },
+    img: {
+        maxWidth: '100%',
+    },
+    '.markdown': {
+        code: {
+            fontSize: '1.2em',
+            color: '#d63384',
+        },
+    },
+});
 
 export type ParamProps = {
     categories: string;
@@ -40,7 +80,7 @@ export default function Posts() {
     }, [categories, fileName]);
 
     return (
-        <div className="post">
+        <Container>
             {isLoading ? (
                 <div>
                     <span>Loading</span>
@@ -48,22 +88,24 @@ export default function Posts() {
             ) : (
                 mdSource && (
                     <>
-                        <ReactMarkdown
-                            className="markdown"
-                            rehypePlugins={[rehypeHighlight]}
-                        >
-                            {mdSource}
-                        </ReactMarkdown>
+                        <MarkdownStyle>
+                            <ReactMarkdown
+                                className="markdown"
+                                rehypePlugins={[rehypeHighlight]}
+                            >
+                                {mdSource}
+                            </ReactMarkdown>
 
-                        <h1>
-                            {categories}/{fileName}
-                        </h1>
+                            <h1>
+                                {categories}/{fileName}
+                            </h1>
+                        </MarkdownStyle>
                         <div>
                             <Link to="/tack-blog">Home</Link>
                         </div>
                     </>
                 )
             )}
-        </div>
+        </Container>
     );
 }
