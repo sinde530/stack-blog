@@ -2,6 +2,9 @@ import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 import logo from 'src/assets/images/logo.png';
 import { css, keyframes } from '@emotion/react';
+import { windowWIdthUpdate } from 'src/common/windowWIdthUpdater';
+import HomeItem from './HomeItem';
+import CategoryItem from './CategoryItem';
 
 export const HeaderContainer = styled.header({
     width: '100%',
@@ -151,6 +154,7 @@ export default function Header({
     const toggleSidebar = () => {
         setSidebarVisible(!sidebarVisible);
     };
+    const windowWidth = windowWIdthUpdate();
 
     return (
         <HeaderContainer>
@@ -162,12 +166,8 @@ export default function Header({
             </HeaderLeftBox>
             <HeaderRightBox>
                 <ListItem>
-                    <Item>
-                        <LinkTo to="/">Home</LinkTo>
-                    </Item>
-                    <Item>
-                        <LinkTo to="/categories">Category</LinkTo>
-                    </Item>
+                    {windowWidth > 480 && <HomeItem />}
+                    {windowWidth > 396 && <CategoryItem />}
                     <ToggleBox>
                         <ToggleButton
                             sidebarVisible={sidebarVisible}
