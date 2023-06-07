@@ -27,7 +27,10 @@ export default function MainLayout() {
                 setSidebarVisible={setSidebarVisible}
             />
             <MainContents>
-                <Sidebar sidebarVisible={sidebarVisible} />
+                <Sidebar
+                    sidebarVisible={sidebarVisible}
+                    setSidebarVisible={setSidebarVisible}
+                />
                 <Outlet />
             </MainContents>
             <Footer />

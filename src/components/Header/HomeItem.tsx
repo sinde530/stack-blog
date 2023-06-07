@@ -25,9 +25,13 @@ export const LinkTo = styled(Link)({
     },
 });
 
-export default function HomeItem() {
+interface Props {
+    CloseModal?: () => void;
+}
+
+export default function HomeItem({ CloseModal }: Props) {
     return (
-        <Item>
+        <Item onClick={CloseModal}>
             <LinkTo to="/">Home</LinkTo>
         </Item>
     );

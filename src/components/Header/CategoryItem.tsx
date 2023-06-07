@@ -25,10 +25,16 @@ export const LinkTo = styled(Link)({
     },
 });
 
-export default function CategoryItem() {
+interface Props {
+    CloseModal?: () => void;
+}
+
+export default function CategoryItem({ CloseModal }: Props) {
     return (
         <Item>
-            <LinkTo to="/categories">Category</LinkTo>
+            <LinkTo to="/categories" onClick={CloseModal}>
+                Category
+            </LinkTo>
         </Item>
     );
 }
