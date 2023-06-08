@@ -87,7 +87,11 @@ export default function Posts() {
                 const markdownContent = md.render(response.data);
 
                 setMdSource(markdownContent);
-                setMetadata(yaml.parse(frontMatterData));
+                if (frontMatterData) {
+                    setMetadata(yaml.parse(frontMatterData));
+                } else {
+                    setMetadata({});
+                }
             } catch (error) {
                 console.error('Failed to fetch post:', error);
             } finally {
