@@ -7,7 +7,9 @@ import polyfillNode from 'rollup-plugin-polyfill-node';
 import md from 'vite-plugin-md'
 
 export default defineConfig({
-  plugins: [react(), tsconfigPaths(), md(), polyfillNode()],
+  plugins: [react(), tsconfigPaths(), md(), polyfillNode({
+    include: ['buffer'],
+  })],
   base: '/tack-blog',
   build: {
     assetsInlineLimit: 0,
