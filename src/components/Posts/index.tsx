@@ -4,7 +4,9 @@ import ReactMarkdown from 'react-markdown';
 import rehypeHighlight from 'rehype-highlight';
 import axios from 'axios';
 import styled from '@emotion/styled';
-import matter from 'gray-matter';
+import MarkdownIt from 'markdown-it';
+import markdownItFrontMatter from 'markdown-it-front-matter';
+import yaml from 'yaml';
 
 export const Container = styled.div({
     padding: '12px 12px',
@@ -74,12 +76,18 @@ export default function Posts() {
                 } catch {
                     response = await axios.get(localUrl);
                 }
-                const { data } = response;
-                const parsedMarkdown = matter(data);
 
-                // setMdSource(response.data);
-                setMdSource(parsedMarkdown.content);
-                setMetadata(parsedMarkdown.data);
+                const md = new MarkdownIt();
+                let frontMatterData;
+
+                md.use(markdownItFrontMatter, function (fm: any) {
+                    frontMatterData = fm;
+                });
+
+                const markdownContent = md.render(response.data);
+
+                setMdSource(markdownContent);
+                setMetadata(yaml.parse(frontMatterData));
             } catch (error) {
                 console.error('Failed to fetch post:', error);
             } finally {
