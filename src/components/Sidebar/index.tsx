@@ -4,6 +4,7 @@ import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 import postsData from 'src/postsData';
 import { windowWIdthUpdate } from 'src/common/windowWIdthUpdater';
+import { handleScrollTop } from 'src/common/scrollTop';
 import HomeItem from '../Header/HomeItem';
 import CategoryItem from '../Header/CategoryItem';
 
@@ -114,6 +115,7 @@ export default function Sidebar({
 
     const CloseModal = () => {
         setSidebarVisible(!setSidebarVisible);
+        handleScrollTop();
     };
 
     return (
