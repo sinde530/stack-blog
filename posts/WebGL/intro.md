@@ -2,9 +2,9 @@
 title: 여러가지 오픈 소스 WebGL FrameWork
 date: '2022-06-29'
 author: Crong
-tags: ['Threejs' 'WebGL']
+tags: ['Threejs', 'WebGL']
 categories: WebGL
-fileName: "intro"
+fileName: 'intro'
 ---
 
 # WebGL 이란?
