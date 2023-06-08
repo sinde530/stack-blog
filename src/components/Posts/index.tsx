@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, ComponentPropsWithRef } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import rehypeHighlight from 'rehype-highlight';
@@ -7,6 +7,8 @@ import styled from '@emotion/styled';
 import MarkdownIt from 'markdown-it';
 import markdownItFrontMatter from 'markdown-it-front-matter';
 import yaml from 'yaml';
+import { ReactMarkdownProps } from 'react-markdown/lib/complex-types';
+import rehypeRaw from 'rehype-raw';
 
 export const Container = styled.div({
     padding: '12px 12px',
@@ -56,6 +58,44 @@ export type ParamProps = {
     title: string;
     date: string;
 };
+
+type ImgProps = ComponentPropsWithRef<'img'> & ReactMarkdownProps;
+
+const MarkdownImage: React.FC<ImgProps> = ({ alt, src, title, ...props }) => {
+    const { categories, fileName } = useParams<ParamProps>();
+
+    // 이미지 경로가 외부 URL인 경우
+    if (src?.startsWith('http')) {
+        return (
+            <img
+                src={src}
+                alt={alt}
+                title={title}
+                style={{ maxWidth: '100%' }}
+                {...props}
+            />
+        );
+    }
+
+    let imageUrl = src;
+    if (categories && fileName && src) {
+        imageUrl = `/tack-blog/posts/${categories}/${src}`;
+    }
+
+    return (
+        <img
+            src={imageUrl}
+            alt={alt}
+            title={title}
+            style={{ maxWidth: '100%' }}
+            {...props}
+        />
+    );
+};
+
+function renderMarkdownImage(props: ReactMarkdownProps & { node: any }) {
+    return <MarkdownImage {...props} />;
+}
 
 export default function Posts() {
     const { categories, fileName, title, date } = useParams<ParamProps>();
@@ -127,7 +167,10 @@ export default function Posts() {
                         <MarkdownStyle>
                             <ReactMarkdown
                                 className="markdown"
-                                rehypePlugins={[rehypeHighlight]}
+                                rehypePlugins={[rehypeHighlight, rehypeRaw]}
+                                components={{
+                                    img: renderMarkdownImage,
+                                }}
                             >
                                 {mdSource}
                             </ReactMarkdown>
