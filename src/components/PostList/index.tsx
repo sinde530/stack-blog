@@ -1,11 +1,11 @@
 /* eslint-disable react/no-array-index-key */
-import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { PostProps } from 'src/App';
-import postsData from 'src/postsData';
 import styled from '@emotion/styled';
-import Heading from 'src/common/Heading';
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+
 import calenderImage from 'src/assets/images/calendar.png';
+import Heading from 'src/common/Heading';
+import postsData from 'src/postsData';
 
 export const Container = styled.div({
     // backgroundColor: 'blue',

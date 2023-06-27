@@ -2,21 +2,12 @@ import { Route, Routes } from 'react-router-dom';
 
 import MainLayout from './layouts/MainLayout';
 
-import Home from './pages/Home';
 import Create from './components/Create';
 import Posts from './components/Posts';
+import Home from './pages/Home';
 
-import NotFound from './pages/NotFound';
 import Categories from './pages/Categories';
-
-export type PostProps = {
-    categories: string;
-    fileName: string;
-    title: string;
-    date: string;
-    author: string;
-    tags: string[];
-};
+import NotFound from './pages/NotFound';
 
 export default function App() {
     return (

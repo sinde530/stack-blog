@@ -1,14 +1,14 @@
-import { useState, useEffect, ComponentPropsWithRef } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import ReactMarkdown from 'react-markdown';
-import rehypeHighlight from 'rehype-highlight';
-import axios from 'axios';
 import styled from '@emotion/styled';
+import axios from 'axios';
 import MarkdownIt from 'markdown-it';
 import markdownItFrontMatter from 'markdown-it-front-matter';
-import yaml from 'yaml';
+import { ComponentPropsWithRef, useEffect, useState } from 'react';
+import ReactMarkdown from 'react-markdown';
 import { ReactMarkdownProps } from 'react-markdown/lib/complex-types';
+import { Link, useParams } from 'react-router-dom';
+import rehypeHighlight from 'rehype-highlight';
 import rehypeRaw from 'rehype-raw';
+import yaml from 'yaml';
 
 export const Container = styled.div({
     padding: '12px 12px',
@@ -120,6 +120,7 @@ export default function Posts() {
                 const md = new MarkdownIt();
                 let frontMatterData;
 
+                // eslint-disable-next-line func-names
                 md.use(markdownItFrontMatter, function (fm: any) {
                     frontMatterData = fm;
                 });
