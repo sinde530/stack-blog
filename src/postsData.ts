@@ -1,5 +1,3 @@
-import { PostProps } from './App';
-
 const postsData: PostProps[] = [
     {
         title: '블로그를 작성해 보자.',
