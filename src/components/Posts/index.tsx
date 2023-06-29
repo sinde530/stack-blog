@@ -49,12 +49,9 @@ const MarkdownStyle = styled.div({
         pre: {
             backgroundColor: '#2d2d2d',
             color: '#c9a5a5',
-            minWidth: '330px',
-            overflow: 'auto',
-        },
-        '.markdown code': {
-            minWidth: '330px',
-            overflow: 'auto',
+            // overflow: 'auto',
+            whiteSpace: 'pre-wrap',
+            wordBreak: 'break-word',
         },
         'pre.language-javascript': {
             backgroundColor: '#212529',
