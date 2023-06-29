@@ -44,8 +44,38 @@ const MarkdownStyle = styled.div({
     '.markdown': {
         code: {
             fontSize: '1.2em',
+            // color: '#d63384',
+        },
+        pre: {
+            backgroundColor: '#2d2d2d',
+            color: '#c9a5a5',
+            minWidth: '330px',
+            overflow: 'auto',
+        },
+        '.markdown code': {
+            minWidth: '330px',
+            overflow: 'auto',
+        },
+        'pre.language-javascript': {
+            backgroundColor: '#212529',
+        },
+        'pre.language-typescript': {
+            backgroundColor: '#212529',
             color: '#d63384',
         },
+        'pre.language-css': {
+            backgroundColor: '#1c7ed6',
+        },
+        'pre.language-html': {
+            backgroundColor: '#f06529',
+        },
+        'pre.language-python': {
+            backgroundColor: '#3572A5',
+        },
+    },
+    li: {
+        listStyle: 'disc',
+        marginLeft: '1rem',
     },
     hr: {
         display: 'none',
@@ -125,9 +155,14 @@ export default function Posts() {
                     frontMatterData = fm;
                 });
 
-                const markdownContent = md.render(response.data);
+                md.render(response.data);
 
-                setMdSource(markdownContent);
+                const contentWithoutFrontMatter = response.data.replace(
+                    /---[\s\S]*?---/,
+                    '',
+                );
+
+                setMdSource(contentWithoutFrontMatter);
                 if (frontMatterData) {
                     setMetadata(yaml.parse(frontMatterData));
                 } else {
@@ -154,6 +189,7 @@ export default function Posts() {
                     <>
                         {metaData && (
                             <div>
+                                <p>{metaData.categories}</p>
                                 <p>{metaData.title}</p>
                                 <p>{metaData.date}</p>
                                 <p>{metaData.author}</p>
@@ -162,7 +198,6 @@ export default function Posts() {
                                         <p key={tag}>{tag}</p>
                                     ))}
                                 </div>
-                                <p>{metaData.categories}</p>
                             </div>
                         )}
                         <MarkdownStyle>
@@ -177,7 +212,7 @@ export default function Posts() {
                             </ReactMarkdown>
                         </MarkdownStyle>
                         <div>
-                            <Link to="/tack-blog">Home</Link>
+                            <Link to="/">Home</Link>
                         </div>
                     </>
                 )
