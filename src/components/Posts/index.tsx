@@ -188,6 +188,7 @@ export default function Posts() {
         fetchPostContent();
     }, [categories, fileName, title, date]);
 
+    console.log('-----metaData-----', metaData);
     return (
         <Container>
             {isLoading ? (
@@ -203,11 +204,11 @@ export default function Posts() {
                                 <p>{metaData.title}</p>
                                 <p>{metaData.date}</p>
                                 <p>{metaData.author}</p>
-                                <div>
+                                {/* <div>
                                     {metaData.tags.map((tag: string) => (
                                         <p key={tag}>{tag}</p>
                                     ))}
-                                </div>
+                                </div> */}
                             </div>
                         )}
                         <MarkdownStyle>
