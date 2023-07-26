@@ -11,7 +11,7 @@ export const GlobalStyle = createGlobalStyle`
 
     body {
         box-sizing: border-box;
-        background-color: #a9a9a9;
+        background-color: #f0f0f0;
     }
 
     a {

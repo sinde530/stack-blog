@@ -7,7 +7,7 @@ interface Prop {
 export const HeaderText = styled.h3({
     borderBottom: '1px solid #5f6365',
     fontSize: '24px',
-    color: '#ffd966',
+    color: '#4caf50',
     paddingBottom: '18px',
     paddingTop: '18px',
 });

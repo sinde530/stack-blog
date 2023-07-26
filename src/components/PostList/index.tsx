@@ -60,8 +60,8 @@ export const TagText = styled(Link)({
     marginBottom: '8px',
     border: '1px solid #373C3F',
     borderRadius: '4px',
-    backgroundColor: '#6d7275',
-    color: '#ffc005',
+    backgroundColor: '#132c75',
+    color: '#f39c12',
     zIndex: '99999',
 
     '&:hover': {

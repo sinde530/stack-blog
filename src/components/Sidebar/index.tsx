@@ -2,11 +2,11 @@
 import styled from '@emotion/styled';
 
 import { Link } from 'react-router-dom';
-import postsData from 'src/postsData';
-import { windowWIdthUpdate } from 'src/common/windowWIdthUpdater';
 import { handleScrollTop } from 'src/common/scrollTop';
-import HomeItem from '../Header/HomeItem';
+import { windowWIdthUpdate } from 'src/common/windowWIdthUpdater';
+import postsData from 'src/postsData';
 import CategoryItem from '../Header/CategoryItem';
+import HomeItem from '../Header/HomeItem';
 
 type ContainerProps = {
     sidebarVisible: boolean;
@@ -85,7 +85,7 @@ export const Span = styled.span({
     paddingBottom: '6px',
     fontSize: '28px',
     borderBottom: '1px solid #5f6365',
-    color: '#ffd559',
+    color: '#f39c12',
     display: 'block',
 });
 
