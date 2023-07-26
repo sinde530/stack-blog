@@ -1,4 +1,3 @@
-import styled from '@emotion/styled';
 import MarkdownIt from 'markdown-it';
 import markdownItFrontMatter from 'markdown-it-front-matter';
 import { ComponentPropsWithRef, useEffect, useState } from 'react';
@@ -8,75 +7,18 @@ import { Link, useParams } from 'react-router-dom';
 import rehypeHighlight from 'rehype-highlight';
 import rehypeRaw from 'rehype-raw';
 import yaml from 'yaml';
-
-export const Container = styled.div({
-    padding: '12px 12px',
-    width: 'calc(100% - 300px)',
-
-    '@media (max-width: 750px)': {
-        width: '100%',
-    },
-});
-
-const MarkdownStyle = styled.div({
-    fontFamily: '"Arial", sans-serif',
-    lineHeight: '1.5',
-    color: '#333',
-    h1: {
-        fontSize: '2.5em',
-        // borderBottom: '1px solid #eaecef',
-    },
-    h2: {
-        fontSize: '2em',
-        color: '#0366d6',
-    },
-    p: {
-        marginBottom: '1em',
-    },
-    a: {
-        color: '#0366d6',
-        textDecoration: 'none',
-    },
-    img: {
-        maxWidth: '100%',
-    },
-    '.markdown': {
-        code: {
-            fontSize: '1.2em',
-            // color: '#d63384',
-        },
-        pre: {
-            backgroundColor: '#2d2d2d',
-            color: '#c9a5a5',
-            // overflow: 'auto',
-            whiteSpace: 'pre-wrap',
-            wordBreak: 'break-word',
-        },
-        'pre.language-javascript': {
-            backgroundColor: '#212529',
-        },
-        'pre.language-typescript': {
-            backgroundColor: '#212529',
-            color: '#d63384',
-        },
-        'pre.language-css': {
-            backgroundColor: '#1c7ed6',
-        },
-        'pre.language-html': {
-            backgroundColor: '#f06529',
-        },
-        'pre.language-python': {
-            backgroundColor: '#3572A5',
-        },
-    },
-    li: {
-        listStyle: 'disc',
-        marginLeft: '1rem',
-    },
-    hr: {
-        display: 'none',
-    },
-});
+import {
+    Author,
+    Box,
+    Container,
+    Date,
+    FullStop,
+    MarkdownStyle,
+    MeataDataBox,
+    TagText,
+    Title,
+    WrapperTags,
+} from './styled';
 
 export type ParamProps = {
     categories: string;
@@ -124,7 +66,7 @@ function renderMarkdownImage(props: ReactMarkdownProps & { node: any }) {
 }
 
 export default function Posts() {
-    const { categories, fileName, title, date } = useParams<ParamProps>();
+    const { categories, fileName } = useParams<ParamProps>();
     const [mdSource, setMdSource] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [metaData, setMetadata] = useState<any>(null);
@@ -186,9 +128,8 @@ export default function Posts() {
         };
 
         fetchPostContent();
-    }, [categories, fileName, title, date]);
+    }, [mdSource]);
 
-    console.log('-----metaData-----', metaData);
     return (
         <Container>
             {isLoading ? (
@@ -199,17 +140,21 @@ export default function Posts() {
                 mdSource && (
                     <>
                         {metaData && (
-                            <div>
-                                <p>{metaData.categories}</p>
-                                <p>{metaData.title}</p>
-                                <p>{metaData.date}</p>
-                                <p>{metaData.author}</p>
-                                <div>
+                            <MeataDataBox>
+                                <Title>{metaData.title}</Title>
+                                <Box>
+                                    <Author>{metaData.author}</Author>
+                                    <FullStop>·</FullStop>
+                                    <Date>{metaData.date}</Date>
+                                </Box>
+                                <WrapperTags>
                                     {metaData.tags.map((tag: string) => (
-                                        <p key={tag}>{tag}</p>
+                                        <TagText to={`/${tag}`} key={tag}>
+                                            {tag}
+                                        </TagText>
                                     ))}
-                                </div>
-                            </div>
+                                </WrapperTags>
+                            </MeataDataBox>
                         )}
                         <MarkdownStyle>
                             <ReactMarkdown
