@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import axios from 'axios';
 import MarkdownIt from 'markdown-it';
 import markdownItFrontMatter from 'markdown-it-front-matter';
 import { ComponentPropsWithRef, useEffect, useState } from 'react';
@@ -129,19 +128,28 @@ export default function Posts() {
     const [mdSource, setMdSource] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [metaData, setMetadata] = useState<any>(null);
-    const url = `https://raw.githubusercontent.com/sinde530/tack-blog/master/public/posts/${categories}/${fileName}.md`;
-    const localUrl = `http://localhost:5173/tack-blog/posts/${categories}/${fileName}.md`;
+    // const url = `https://raw.githubusercontent.com/sinde530/tack-blog/master/public/posts/${categories}/${fileName}.md`;
+    // const localUrl = `http://localhost:5173/tack-blog/posts/${categories}/${fileName}.md`;
+    const url = `/tack-blog/posts/${categories}/${fileName}.md`;
+    // const localUrl = `/tack-blog/posts/${categories}/${fileName}.md`;
 
     useEffect(() => {
         const fetchPostContent = async () => {
             try {
                 setIsLoading(true);
 
-                let response;
+                let response: any;
                 try {
-                    response = await axios.get(url);
-                } catch {
-                    response = await axios.get(localUrl);
+                    // response = await axios.get(url);
+                    const res = await fetch(url);
+                    response = await res.text();
+                } catch (error) {
+                    // response = await axios.get(localUrl);
+                    // const res = await fetch(localUrl);
+                    // response = await res.text();
+                    console.log(url);
+                    console.error(error);
+                    console.log('response:', response);
                 }
 
                 const md = new MarkdownIt();
@@ -152,9 +160,14 @@ export default function Posts() {
                     frontMatterData = fm;
                 });
 
-                md.render(response.data);
+                // md.render(response.data);
+                md.render(response);
 
-                const contentWithoutFrontMatter = response.data.replace(
+                // const contentWithoutFrontMatter = response.data.replace(
+                //     /---[\s\S]*?---/,
+                //     '',
+                // );
+                const contentWithoutFrontMatter = response.replace(
                     /---[\s\S]*?---/,
                     '',
                 );
