@@ -70,10 +70,7 @@ export default function Posts() {
     const [mdSource, setMdSource] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [metaData, setMetadata] = useState<any>(null);
-    // const url = `https://raw.githubusercontent.com/sinde530/tack-blog/master/public/posts/${categories}/${fileName}.md`;
-    // const localUrl = `http://localhost:5173/tack-blog/posts/${categories}/${fileName}.md`;
     const url = `/tack-blog/posts/${categories}/${fileName}.md`;
-    // const localUrl = `/tack-blog/posts/${categories}/${fileName}.md`;
 
     useEffect(() => {
         const fetchPostContent = async () => {
@@ -82,16 +79,10 @@ export default function Posts() {
 
                 let response: any;
                 try {
-                    // response = await axios.get(url);
                     const res = await fetch(url);
                     response = await res.text();
                 } catch (error) {
-                    // response = await axios.get(localUrl);
-                    // const res = await fetch(localUrl);
-                    // response = await res.text();
-                    console.log(url);
                     console.error(error);
-                    console.log('response:', response);
                 }
 
                 const md = new MarkdownIt();
@@ -102,13 +93,8 @@ export default function Posts() {
                     frontMatterData = fm;
                 });
 
-                // md.render(response.data);
                 md.render(response);
 
-                // const contentWithoutFrontMatter = response.data.replace(
-                //     /---[\s\S]*?---/,
-                //     '',
-                // );
                 const contentWithoutFrontMatter = response.replace(
                     /---[\s\S]*?---/,
                     '',
@@ -128,7 +114,7 @@ export default function Posts() {
         };
 
         fetchPostContent();
-    }, [mdSource]);
+    }, [fileName]);
 
     return (
         <Container>
