@@ -31,6 +31,14 @@ const postsData: PostProps[] = [
         categories: 'WebGL',
         fileName: 'intro',
     },
+    {
+        title: '5분만에 해치우는 dependencies, devDependencies',
+        date: '2023-07-28',
+        author: 'Crong',
+        tags: ['JavaScript', 'TypeScript'],
+        categories: 'TypeScript',
+        fileName: 'dependencies',
+    },
 ];
 
 export default postsData;
